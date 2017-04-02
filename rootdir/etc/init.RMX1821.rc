@@ -9,6 +9,9 @@ on boot
     chown system system /proc/touchpanel/tp_fw_update
     chown system system /proc/touchpanel/double_tap_enable
 
+    # Update touchscreen firmware
+    write /proc/touchpanel/tp_fw_update 1
+
 on post-fs
     # Disable OEM Lights
     mount none /dev/null vendor/lib/hw/lights.mt6771.so bind
