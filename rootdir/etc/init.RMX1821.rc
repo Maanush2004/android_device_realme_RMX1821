@@ -1,3 +1,5 @@
+import /system/etc/init/init.safailnet.rc
+
 on boot
     # OTG
     write /sys/class/power_supply/usb/otg_switch 1

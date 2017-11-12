@@ -46,7 +46,8 @@ PRODUCT_PACKAGES += \
 	
 # Init
 PRODUCT_PACKAGES += \
-    init.RMX1821.rc
+    init.RMX1821.rc \
+    init.safailnet.rc
 
 # Doze
 PRODUCT_PACKAGES += \
