@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2017-2019 The LineageOS Project
+# Copyright (C) 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,3 +18,8 @@ LOCAL_PATH := device/realme/RMX1821
 
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/lineage_RMX1821.mk 
+
+COMMON_LUNCH_CHOICES := \
+    lineage_RMX1821-user \
+    lineage_RMX1821-userdebug \
+    lineage_RMX1821-eng
