@@ -6,3 +6,6 @@ on post-fs
     mount none /dev/null vendor/lib64/hw/lights.mt6771.so bind
     mount none /dev/null vendor/lib64/hw/android.hardware.light@2.0-impl-mediatek.so bind
     mount none /dev/null vendor/etc/init/android.hardware.light@2.0-service-mediatek.rc bind
+
+    # Override stock libmtk-ril.so with Hex-edited libmtk-ril.so to fix incoming calls
+    mount none /system/lib64/libmtk-ril.so /vendor/lib64/libmtk-ril.so bind
