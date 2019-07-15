@@ -137,9 +137,6 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := $(LOCAL_PATH)/framework_manifest.xml
 # Append VBMeta to Boot Image
 MAIN_VBMETA_IN_BOOT := yes
 
-# Charger
-BOARD_CHARGER_ENABLE_SUSPEND := true
-
 # We need this for apns-conf
 # We would like to override instead of merge
 BUILD_BROKEN_DUP_RULES := true
