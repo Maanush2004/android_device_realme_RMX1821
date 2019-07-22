@@ -2,6 +2,9 @@
 # system.prop for Realme 3
 #
 
+# Graphics
+debug.sf.enable_gl_backpressure=1
+
 rild.libpath=mtk-ril.so
 rild.libargs=-d /dev/ttyC0
 
