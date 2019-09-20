@@ -10,5 +10,5 @@ lib/libsysenv_system.so
 etc/apns-conf.xml:product/etc/apns-conf.xml
 
 # Camera | From RMX1821EX_11.C.14
-vendor/lib/libdpframework.so:lib/libdpframework.so|48b164fe321581c7f379e40891c0f8f6f626557f
-vendor/lib64/libdpframework.so:lib64/libdpframework.so|0e5f5e3f2955201a1ddd457bd1805cc08d085650
+vendor/lib/libdpframework.so:product/vendor_overlay/29/lib/libdpframework.so|48b164fe321581c7f379e40891c0f8f6f626557f
+vendor/lib64/libdpframework.so:product/vendor_overlay/29/lib64/libdpframework.so|0e5f5e3f2955201a1ddd457bd1805cc08d085650
