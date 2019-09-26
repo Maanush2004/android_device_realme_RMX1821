@@ -124,3 +124,6 @@ TARGET_ENABLE_MEDIADRM_64 := true
 
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
+
+# Framework Manifest
+DEVICE_FRAMEWORK_MANIFEST_FILE := $(LOCAL_PATH)/framework_manifest.xml
