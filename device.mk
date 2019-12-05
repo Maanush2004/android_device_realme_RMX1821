@@ -73,6 +73,10 @@ PRODUCT_BOOT_JARS += \
     mediatek-telephony-base \
     mediatek-telephony-common    
 
+# RcsService
+PRODUCT_PACKAGES += \
+    RcsService
+
 # VNDK
 PRODUCT_EXTRA_VNDK_VERSIONS := 29
 
