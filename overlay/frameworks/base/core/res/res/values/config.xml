@@ -235,6 +235,10 @@
 
     <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
      <bool name="config_displayBlanksAfterDoze">true</bool>    
+
+    <!-- Whether to post reset runnable for all clients. Needed for some older
+         vendor fingerprint HAL implementations. -->
+    <bool name="config_fingerprintPostResetRunnableForAllClients">true</bool>
     
      <!-- Height of the status bar -->
      <dimen name="status_bar_height_portrait">28.0dip</dimen>
