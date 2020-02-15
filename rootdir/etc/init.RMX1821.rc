@@ -12,6 +12,9 @@ on boot
     # Update touchscreen firmware
     write /proc/touchpanel/tp_fw_update 1
 
+    # Disable edge limit control interface
+    write /proc/touchpanel/oppo_tp_limit_enable 0
+
 on post-fs
     # Disable OEM Lights
     mount none /dev/null vendor/lib/hw/lights.mt6771.so bind
