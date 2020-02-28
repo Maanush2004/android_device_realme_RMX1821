@@ -44,5 +44,9 @@ PRODUCT_SOONG_NAMESPACES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.RMX1821
 	
+# Init
+PRODUCT_PACKAGES += \
+    init.RMX1821.rc
+	
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
