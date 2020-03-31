@@ -88,6 +88,9 @@ TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
 
+# Network Routing
+TARGET_IGNORES_FTP_PPTP_CONNTRACK_FAILURE := true
+
 # Properties
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
