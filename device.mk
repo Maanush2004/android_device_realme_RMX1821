@@ -40,5 +40,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
 	
+# Lights
+PRODUCT_PACKAGES += \
+    android.hardware.light@2.0-service.RMX1821
+	
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
