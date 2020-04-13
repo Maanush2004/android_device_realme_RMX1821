@@ -15,6 +15,9 @@ on boot
     # Disable edge limit control interface
     write /proc/touchpanel/oppo_tp_limit_enable 0
 
+    # Enable oppo's touchpanel direction
+    write /proc/touchpanel/oppo_tp_direction 1
+
 on post-fs
     # Disable OEM Lights
     mount none /dev/null vendor/lib/hw/lights.mt6771.so bind
