@@ -86,3 +86,6 @@ sys.ipo.disable=1
 #ifdef VENDOR_EDIT
 #Wensheng.Wang@PSW.AD.Stability.Compatibility,2018/11/27,Add coordinate property for application adaptation
 ro.oppo.screen.heteromorphism=264,0:456,54
+
+# Zygote preforking
+persist.device_config.runtime_native.usap_pool_enabled=true
