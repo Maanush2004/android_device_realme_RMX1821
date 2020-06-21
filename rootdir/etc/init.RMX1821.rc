@@ -1,3 +1,7 @@
+on boot
+    # OTG
+    write /sys/class/power_supply/usb/otg_switch 1
+
 on post-fs
     # Disable OEM Lights
     mount none /dev/null vendor/lib/hw/lights.mt6771.so bind
