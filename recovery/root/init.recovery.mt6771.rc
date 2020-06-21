@@ -4,8 +4,11 @@ on init
     setprop sys.usb.configfs 1
     setprop sys.usb.ffs.aio_compat 1
 
-#chengzhixing.BSP.TP.FUNCTION, 2020/03/25, Add for 18601 noflash tp fw update
 on boot
+    # OTG
+    write /sys/class/power_supply/usb/otg_switch 1
+
+	#chengzhixing.BSP.TP.FUNCTION, 2020/03/25, Add for 18601 noflash tp fw update
     chown system system /proc/touchpanel/tp_fw_update
     write /proc/touchpanel/tp_fw_update 1
 
