@@ -85,5 +85,8 @@ PRODUCT_PACKAGES += \
     libhidltransport \
     libhwbinder
 
+# Enable updating of APEXes
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
