@@ -322,5 +322,14 @@
          Note that doze dreams are not subject to the same start conditions as ordinary dreams.
          Doze dreams will run whenever the power manager is in a dozing state. -->
      <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>     
+
+    <!-- Flag specifying whether VoLTE is available on device -->
+    <bool name="config_device_volte_available">true</bool>
+    <!-- Flag specifying whether VT is available on device -->
+    <bool name="config_device_vt_available">true</bool>
+    <!-- Flag specifying whether or not IMS will use the ImsResolver dynamically -->
+    <bool name="config_dynamic_bind_ims">true</bool>
+    <!-- ImsService package name to bind to by default, if config_dynamic_bind_ims is true -->
+    <string name="config_ims_package">com.mediatek.ims</string>
      
 </resources>

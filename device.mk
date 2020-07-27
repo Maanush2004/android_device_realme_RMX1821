@@ -53,6 +53,16 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.RMX1821
-    
+
+# Telephony Jars
+PRODUCT_BOOT_JARS += \
+    mediatek-common \
+    mediatek-framework \
+    mediatek-ims-base \
+    mediatek-ims-common \
+    mediatek-telecom-common \
+    mediatek-telephony-base \
+    mediatek-telephony-common    
+
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)

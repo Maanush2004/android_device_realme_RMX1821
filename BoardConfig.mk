@@ -123,6 +123,7 @@ TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
 # Sepolicy
 TARGET_HAS_FUSEBLK_SEPOLICY_ON_VENDOR := true
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/private
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
@@ -138,3 +139,7 @@ MAIN_VBMETA_IN_BOOT := yes
 
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
+
+# We need this for apns-conf
+# We would like to override instead of merge
+BUILD_BROKEN_DUP_RULES := true
