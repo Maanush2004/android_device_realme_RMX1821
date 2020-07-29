@@ -42,6 +42,7 @@ PRODUCT_PACKAGES += \
 	
 # Init
 PRODUCT_PACKAGES += \
+    fstab.mt6771 \
     init.RMX1821.rc \
     init.safailnet.rc
 
