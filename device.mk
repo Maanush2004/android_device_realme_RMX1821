@@ -85,6 +85,10 @@ PRODUCT_PACKAGES += \
     libhidltransport \
     libhwbinder
 
+# Tethering
+PRODUCT_PACKAGES += \
+    TetheringConfigOverlay
+
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
