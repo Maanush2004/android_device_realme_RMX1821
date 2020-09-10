@@ -80,5 +80,10 @@ PRODUCT_PACKAGES += \
 # VNDK
 PRODUCT_EXTRA_VNDK_VERSIONS := 29
 
+# HIDL
+PRODUCT_PACKAGES += \
+    libhidltransport \
+    libhwbinder
+
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
