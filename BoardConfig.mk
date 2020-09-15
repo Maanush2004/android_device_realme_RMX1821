@@ -133,3 +133,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
 
 # Framework Manifest
 DEVICE_FRAMEWORK_MANIFEST_FILE := $(LOCAL_PATH)/framework_manifest.xml
+
+# Append VBMeta to Boot Image
+MAIN_VBMETA_IN_BOOT := yes

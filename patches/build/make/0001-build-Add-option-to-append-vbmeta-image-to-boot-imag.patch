@@ -1,0 +1,201 @@
+From 9faff5a8f037ffb257d9df5dd590c91718d00dd6 Mon Sep 17 00:00:00 2001
+From: Maanush Putcha <p.maanush@gmail.com>
+Date: Tue, 15 Sep 2020 22:20:40 +0530
+Subject: [PATCH] build: Add option to append vbmeta image to boot image
+
+* Partially taken from https://github.com/mtk-watch/android_build_make/commit/89d279a7ab1d0249f89c84d53fd4dbd786d19727
+
+* Set MAIN_VBMETA_IN_BOOT=yes for the vbmeta to get appended to boot image
+
+Signed-off-by: Iscle <albertiscle9@gmail.com>
+Signed-off-by: Maanush Putcha <p.maanush@gmail.com>
+Change-Id: I50260b797238daf1701d3f6c422bbd5ca1cbd25c
+---
+ core/Makefile                                 | 31 +++++++++++++++++++
+ core/main.mk                                  |  4 +--
+ tools/releasetools/add_img_to_target_files.py | 29 +++++++++++++++++
+ tools/releasetools/common.py                  | 15 ++++++++-
+ 4 files changed, 76 insertions(+), 3 deletions(-)
+
+diff --git a/core/Makefile b/core/Makefile
+index a5eef48..9470ba4 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -935,6 +935,8 @@ endif # BUILDING_RAMDISK_IMAGE
+ 
+ 
+ INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
++MTK_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
++INSTALLED_BOOTIMAGE_TARGET := $(call intermediates-dir-for,PACKAGING,boot)/boot.img
+ 
+ ifneq ($(strip $(TARGET_NO_KERNEL)),true)
+ 
+@@ -1070,6 +1072,7 @@ endif
+ $(eval $(call copy-one-file,$(BOARD_PREBUILT_BOOTIMAGE),$(INSTALLED_BOOTIMAGE_TARGET)))
+ else # BOARD_PREBUILT_BOOTIMAGE not defined
+ INSTALLED_BOOTIMAGE_TARGET :=
++MTK_BOOTIMAGE_TARGET :=
+ endif # BOARD_PREBUILT_BOOTIMAGE
+ endif # TARGET_NO_KERNEL
+ 
+@@ -3376,6 +3379,23 @@ vbmetaimage-nodeps:
+ 
+ endif # BOARD_AVB_ENABLE
+ 
++ifneq ($(strip $(TARGET_NO_KERNEL)),true)
++ifeq (yes, $(strip $(MAIN_VBMETA_IN_BOOT)))
++
++ifeq (true, $(strip $(BOARD_AVB_ENABLE)))
++$(MTK_BOOTIMAGE_TARGET): $(INSTALLED_BOOTIMAGE_TARGET) $(BUILT_VBMETAIMAGE_TARGET) $(AVBTOOL)
++	@echo "Install boot image: $@"
++	$(copy-file-to-target)
++	$(hide) $(AVBTOOL) append_vbmeta_image --image $@ --partition_size $(BOARD_BOOTIMAGE_PARTITION_SIZE) --vbmeta_image $(BUILT_VBMETAIMAGE_TARGET)
++endif
++
++else
++$(MTK_BOOTIMAGE_TARGET): $(INSTALLED_BOOTIMAGE_TARGET)
++	@echo "Install boot image: $@"
++	$(copy-file-to-target)
++endif # MAIN_VBMETA_IN_BOOT
++endif # TARGET_NO_KERNEL
++
+ # -----------------------------------------------------------------
+ # Check image sizes <= size of super partition
+ 
+@@ -3784,6 +3804,7 @@ endef
+ $(BUILT_TARGET_FILES_PACKAGE): \
+ 	    $(INSTALLED_RAMDISK_TARGET) \
+ 	    $(INSTALLED_BOOTIMAGE_TARGET) \
++	    $(MTK_BOOTIMAGE_TARGET) \
+ 	    $(INSTALLED_RADIOIMAGE_TARGET) \
+ 	    $(INSTALLED_RECOVERYIMAGE_TARGET) \
+ 	    $(FULL_SYSTEMIMAGE_DEPS) \
+@@ -4065,6 +4086,9 @@ ifdef BOARD_AVB_RECOVERY_KEY_PATH
+ 	$(hide) echo "avb_recovery_algorithm=$(BOARD_AVB_RECOVERY_ALGORITHM)" >> $(zip_root)/META/misc_info.txt
+ 	$(hide) echo "avb_recovery_rollback_index_location=$(BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION)" >> $(zip_root)/META/misc_info.txt
+ endif # BOARD_AVB_RECOVERY_KEY_PATH
++ifeq (yes, $(strip $(MAIN_VBMETA_IN_BOOT)))
++	$(hide) echo "avb_main_vbmeta_in_boot=true" >> $(zip_root)/META/misc_info.txt
++endif # MAIN_VBMETA_IN_BOOT
+ ifneq (,$(strip $(BOARD_AVB_VBMETA_SYSTEM)))
+ 	$(hide) echo "avb_vbmeta_system=$(BOARD_AVB_VBMETA_SYSTEM)" >> $(zip_root)/META/misc_info.txt
+ 	$(hide) echo "avb_vbmeta_system_args=$(BOARD_AVB_MAKE_VBMETA_SYSTEM_IMAGE_ARGS)" >> $(zip_root)/META/misc_info.txt
+@@ -4216,6 +4240,13 @@ endif # BOARD_SUPER_PARTITION_GROUPS
+ 	@# TODO(b/134525174): Remove `-r` after addressing the issue with recovery patch generation.
+ 	$(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH MKBOOTIMG=$(MKBOOTIMG) \
+ 	    build/make/tools/releasetools/add_img_to_target_files -a -r -v -p $(HOST_OUT) $(zip_root)
++
++ifeq (yes, $(strip $(MAIN_VBMETA_IN_BOOT)))
++ifeq (true, $(strip $(BOARD_AVB_ENABLE)))
++	$(hide) $(AVBTOOL) append_vbmeta_image --image $(zip_root)/IMAGES/boot.img --partition_size $(BOARD_BOOTIMAGE_PARTITION_SIZE) --vbmeta_image $(zip_root)/IMAGES/vbmeta.img
++endif
++endif
++
+ 	@# Zip everything up, preserving symlinks and placing META/ files first to
+ 	@# help early validation of the .zip file while uploading it.
+ 	$(hide) find $(zip_root)/META | sort >$@.list
+diff --git a/core/main.mk b/core/main.mk
+index e8a1c4f..d79007c 100644
+--- a/core/main.mk
++++ b/core/main.mk
+@@ -1574,7 +1574,7 @@ systemotherimage: $(INSTALLED_SYSTEMOTHERIMAGE_TARGET)
+ superimage_empty: $(INSTALLED_SUPERIMAGE_EMPTY_TARGET)
+ 
+ .PHONY: bootimage
+-bootimage: $(INSTALLED_BOOTIMAGE_TARGET)
++bootimage: $(MTK_BOOTIMAGE_TARGET)
+ 
+ .PHONY: bootimage_debug
+ bootimage_debug: $(INSTALLED_DEBUG_BOOTIMAGE_TARGET)
+@@ -1590,7 +1590,7 @@ auxiliary: $(INSTALLED_AUX_TARGETS)
+ droidcore: $(filter $(HOST_OUT_ROOT)/%,$(modules_to_install)) \
+     $(INSTALLED_SYSTEMIMAGE_TARGET) \
+     $(INSTALLED_RAMDISK_TARGET) \
+-    $(INSTALLED_BOOTIMAGE_TARGET) \
++    $(MTK_BOOTIMAGE_TARGET) \
+     $(INSTALLED_DEBUG_RAMDISK_TARGET) \
+     $(INSTALLED_DEBUG_BOOTIMAGE_TARGET) \
+     $(INSTALLED_RECOVERYIMAGE_TARGET) \
+diff --git a/tools/releasetools/add_img_to_target_files.py b/tools/releasetools/add_img_to_target_files.py
+index 96b7f0b..cfadc1a 100755
+--- a/tools/releasetools/add_img_to_target_files.py
++++ b/tools/releasetools/add_img_to_target_files.py
+@@ -412,6 +412,31 @@ def AppendVBMetaArgsForPartition(cmd, partition, image):
+   else:
+     cmd.extend(["--include_descriptors_from_image", image])
+ 
++def AVBSignBoot(output_zip):
++  """Sign the boot image by avbtool.
++  Skip sign the boot image in GetBootableImage for generate recovery
++  patch if main_vbmeta_in_boot is enabled. Sign boot image which is
++  under IMAGES/ and is generated by GetBootableImage.
++  """
++  img = OutputFile(output_zip, OPTIONS.input_tmp, "IMAGES", "boot.img")
++  if os.path.exists(img.name):
++  # AVB-sign the image as needed.
++    avbtool = os.getenv('AVBTOOL') or OPTIONS.info_dict["avb_avbtool"]
++    part_size = OPTIONS.info_dict["boot_size"]
++    # The AVB hash footer will be replaced if already present.
++    cmd = [avbtool, "add_hash_footer", "--image", img.name,
++           "--partition_size", str(part_size), "--partition_name", "boot"]
++    common.AppendAVBSigningArgs(cmd, "boot")
++    args = OPTIONS.info_dict.get("avb_boot_add_hash_footer_args")
++    if args and args.strip():
++      cmd.extend(shlex.split(args))
++    common.RunAndCheckOutput(cmd)
++  else:
++    assert os.path.exists(img.input_name), 'Failed to find boot.img in %s' % (
++        img.input_name)
++
++  img.Write()
++  return img.name
+ 
+ def AddVBMeta(output_zip, partitions, name, needed_partitions):
+   """Creates a VBMeta image and stores it in output_zip.
+@@ -856,6 +881,10 @@ def AddImagesToTargetFiles(filename):
+     banner("dtbo")
+     partitions['dtbo'] = AddDtbo(output_zip)
+ 
++  if OPTIONS.info_dict.get("avb_main_vbmeta_in_boot") == "true":
++    banner("main_vbmeta_in_boot")
++    partitions['boot'] = AVBSignBoot(output_zip)
++
+   if OPTIONS.info_dict.get("avb_enable") == "true":
+     # vbmeta_partitions includes the partitions that should be included into
+     # top-level vbmeta.img, which are the ones that are not included in any
+diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
+index b2afaf1..bb8dd99 100644
+--- a/tools/releasetools/common.py
++++ b/tools/releasetools/common.py
+@@ -735,7 +735,7 @@ def _BuildBootableImage(sourcedir, fs_config_file, info_dict=None,
+     img_keyblock.close()
+ 
+   # AVB: if enabled, calculate and add hash to boot.img or recovery.img.
+-  if info_dict.get("avb_enable") == "true":
++  if info_dict.get("avb_enable") == "true" and info_dict.get("avb_main_vbmeta_in_boot") != "true":
+     avbtool = info_dict["avb_avbtool"]
+     part_size = info_dict[partition_name + "_size"]
+     cmd = [avbtool, "add_hash_footer", "--image", img.name,
+@@ -747,6 +747,19 @@ def _BuildBootableImage(sourcedir, fs_config_file, info_dict=None,
+       cmd.extend(shlex.split(args))
+     RunAndCheckOutput(cmd)
+ 
++  # AVB: if vbmeta needs to be appended to boot, only add hash to recovery.img
++  if info_dict.get("avb_enable") == "true" and info_dict.get("avb_main_vbmeta_in_boot") == "true":
++    avbtool = info_dict["avb_avbtool"]
++    part_size = info_dict["recovery_size"]
++    cmd = [avbtool, "add_hash_footer", "--image", img.name,
++           "--partition_size", str(part_size), "--partition_name",
++           partition_name]
++    AppendAVBSigningArgs(cmd, partition_name)
++    args = info_dict.get("avb_recovery_add_hash_footer_args")
++    if args and args.strip():
++      cmd.extend(shlex.split(args))
++    RunAndCheckOutput(cmd)
++
+   img.seek(os.SEEK_SET, 0)
+   data = img.read()
+ 
+-- 
+2.28.0
+
