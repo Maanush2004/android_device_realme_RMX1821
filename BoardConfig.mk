@@ -144,3 +144,8 @@ MAIN_VBMETA_IN_BOOT := yes
 # We need this for apns-conf
 # We would like to override instead of merge
 BUILD_BROKEN_DUP_RULES := true
+
+
+#Board init
+TARGET_INIT_VENDOR_LIB := //$(LOCAL_PATH):libinit_RMX1821
+TARGET_RECOVERY_DEVICE_MODULES := libinit_RMX1821
