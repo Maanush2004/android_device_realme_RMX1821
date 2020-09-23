@@ -244,11 +244,15 @@
     <bool name="config_cleanupUnusedFingerprints">false</bool>
     
      <!-- Height of the status bar -->
-     <dimen name="status_bar_height_portrait">28.0dip</dimen>
+     <dimen name="status_bar_height_portrait">32.0dip</dimen>
      
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
      <integer name="config_screenBrightnessSettingMinimum">1</integer>
+    
+     <!-- Maximum screen brightness setting allowed by the power manager.
+         The user is forbidden from setting the brightness below this level. -->
+    <integer name="config_screenBrightnessSettingMaximum">255</integer>
      
     <!-- Default screen brightness setting.
          Must be in the range specified by minimum and maximum. -->
@@ -302,7 +306,7 @@
          appended after the path string to interpret coordinates in dp instead of px units.
          Note that a physical cutout should be configured in pixels for the best results.
     -->
-    <string name="config_mainBuiltInDisplayCutout">M -162,0 L -162,54 L 162,54 L 162,0 Z</string>
+    <string name="config_mainBuiltInDisplayCutout">M -50,0 L -50,54 L 50,54 L 50,0 Z</string>
 
     <!-- Screen brightness used to dim the screen while dozing in a very low power state.
          May be less than the minimum allowed brightness setting
