@@ -1,4 +1,5 @@
 import /system/etc/init/init.safailnet.rc
+import /system/etc/init/init.oppo.fingerprints.rc
 
 on boot
     # OTG
