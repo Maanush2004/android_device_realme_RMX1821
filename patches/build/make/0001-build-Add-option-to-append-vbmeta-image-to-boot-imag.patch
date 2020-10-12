@@ -1,4 +1,4 @@
-From 9faff5a8f037ffb257d9df5dd590c91718d00dd6 Mon Sep 17 00:00:00 2001
+From 743e0b1264ec0b28e282de46e6f851bde6dbe91e Mon Sep 17 00:00:00 2001
 From: Maanush Putcha <p.maanush@gmail.com>
 Date: Tue, 15 Sep 2020 22:20:40 +0530
 Subject: [PATCH] build: Add option to append vbmeta image to boot image
@@ -164,7 +164,7 @@ index 96b7f0b..cfadc1a 100755
      # vbmeta_partitions includes the partitions that should be included into
      # top-level vbmeta.img, which are the ones that are not included in any
 diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
-index b2afaf1..bb8dd99 100644
+index b2afaf1..5467395 100644
 --- a/tools/releasetools/common.py
 +++ b/tools/releasetools/common.py
 @@ -735,7 +735,7 @@ def _BuildBootableImage(sourcedir, fs_config_file, info_dict=None,
@@ -186,8 +186,8 @@ index b2afaf1..bb8dd99 100644
 +    part_size = info_dict["recovery_size"]
 +    cmd = [avbtool, "add_hash_footer", "--image", img.name,
 +           "--partition_size", str(part_size), "--partition_name",
-+           partition_name]
-+    AppendAVBSigningArgs(cmd, partition_name)
++           "recovery"]
++    AppendAVBSigningArgs(cmd, "recovery")
 +    args = info_dict.get("avb_recovery_add_hash_footer_args")
 +    if args and args.strip():
 +      cmd.extend(shlex.split(args))
