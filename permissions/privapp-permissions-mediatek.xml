@@ -30,6 +30,7 @@ applications that come with the platform
     </privapp-permissions>
 
     <privapp-permissions package="com.mediatek.ims">
+        <permission name="android.permission.UPDATE_DEVICE_STATS" />
         <permission name="android.permission.READ_PRECISE_PHONE_STATE"/>
         <permission name="android.permission.READ_NETWORK_USAGE_HISTORY"/>
         <permission name="android.permission.PACKET_KEEPALIVE_OFFLOAD"/>
