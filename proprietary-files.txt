@@ -5,9 +5,6 @@ lib/libshowlogo.so
 lib/libsysenv_system.so
 lib64/libsysenv_system.so
 
-# RIL
-vendor/lib64/libmtk-ril.so:lib64/libmtk-ril.so
-
 # APNs
 etc/apns-conf.xml
 
