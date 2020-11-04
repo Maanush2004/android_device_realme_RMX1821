@@ -7,7 +7,6 @@ Subject: [PATCH] build: Add option to append vbmeta image to boot image
 
 * Set MAIN_VBMETA_IN_BOOT=yes for the vbmeta to get appended to boot image
 
-Signed-off-by: Iscle <albertiscle9@gmail.com>
 Signed-off-by: Maanush Putcha <p.maanush@gmail.com>
 Change-Id: I50260b797238daf1701d3f6c422bbd5ca1cbd25c
 ---
