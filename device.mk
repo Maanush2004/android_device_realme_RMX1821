@@ -23,9 +23,10 @@ DEVICE_PACKAGE_OVERLAYS += \
 	$(LOCAL_PATH)/overlay \
 	$(LOCAL_PATH)/overlay-lineage
 
-# Dependency of kpoc_charger
+# Dependencies of kpoc_charger
 PRODUCT_PACKAGES += \
-    libsuspend
+    libsuspend \
+    android.hardware.health@2.0
 
 # Input Configs
 PRODUCT_COPY_FILES += \
