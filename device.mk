@@ -47,7 +47,9 @@ PRODUCT_PACKAGES += \
     fstab.mt6771 \
     init.RMX1821.rc \
     init.safailnet.rc \
-    init.oppo.fingerprints.rc
+    init.oppo.fingerprints.rc \
+    init.ago.rc \
+    fstab.enableswap
 
 # Doze
 PRODUCT_PACKAGES += \
