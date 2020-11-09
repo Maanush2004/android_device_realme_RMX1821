@@ -1,5 +1,6 @@
 # Realme 3/3i Device Tree
 Realme 3/3i (RMX1821, RMX1823, RMX1825, RMX1827) are mid-range smartphones launched by Realme in March and July of 2019 respectively
+
 ![Realme 3/3i](https://fdn2.gsmarena.com/vv/bigpic/realme-3.jpg "Realme 3/3i")
 
 ### Specifications
