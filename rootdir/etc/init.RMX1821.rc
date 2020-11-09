@@ -30,3 +30,6 @@ on post-fs
     mount none /dev/null vendor/lib64/hw/lights.mt6771.so bind
     mount none /dev/null vendor/lib64/hw/android.hardware.light@2.0-impl-mediatek.so bind
     mount none /dev/null vendor/etc/init/android.hardware.light@2.0-service-mediatek.rc bind
+    
+    # Override stock audio_policy_configuration.xml
+    mount none /system/etc/audio_policy_configuration.xml /vendor/etc/audio_policy_configuration.xml bind
