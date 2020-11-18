@@ -73,5 +73,8 @@ PRODUCT_BOOT_JARS += \
     mediatek-telephony-base \
     mediatek-telephony-common    
 
+# VNDK
+PRODUCT_EXTRA_VNDK_VERSIONS := 29
+
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
