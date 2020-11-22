@@ -22,6 +22,9 @@ on boot
     # Enable oppo's touchpanel direction
     write /proc/touchpanel/oppo_tp_direction 1
 
+on init
+    mount none /vendor/lost+found /vendor/overlay bind
+
 on post-fs
     # Unmount the overridden fstab because the SELinux label is incorrect
     # and some MTK daemons can crash because of that
