@@ -1,6 +1,6 @@
-From 49b5675ee2bf0627c556270253392994f7460d3d Mon Sep 17 00:00:00 2001
+From ff71ba26fddbfb812d34e4fde4d942c057039fb9 Mon Sep 17 00:00:00 2001
 From: Maanush Putcha <p.maanush@gmail.com>
-Date: Wed, 18 Nov 2020 19:57:25 +0530
+Date: Tue, 24 Nov 2020 06:51:39 +0530
 Subject: [PATCH] build: Add option to append vbmeta image to boot image
 
 * Partially taken from https://github.com/mtk-watch/android_build_make/commit/89d279a7ab1d0249f89c84d53fd4dbd786d19727
@@ -8,24 +8,33 @@ Subject: [PATCH] build: Add option to append vbmeta image to boot image
 * Set MAIN_VBMETA_IN_BOOT=yes for the vbmeta to get appended to boot image
 
 Signed-off-by: Maanush Putcha <p.maanush@gmail.com>
-Change-Id: I2022df5e9a3a964c2dfeb9559ae7f16d0be69f62
+Change-Id: Ie11338be0dc76605e38644cf7befb2483d816d6e
 ---
- core/Makefile                                 | 29 +++++++++++++++++++
+ core/Makefile                                 | 33 +++++++++++++++++--
  core/main.mk                                  |  4 +--
- tools/releasetools/add_img_to_target_files.py | 29 +++++++++++++++++++
- tools/releasetools/common.py                  | 15 +++++++++-
- 4 files changed, 74 insertions(+), 3 deletions(-)
+ tools/releasetools/add_img_to_target_files.py | 29 ++++++++++++++++
+ tools/releasetools/common.py                  | 15 ++++++++-
+ 4 files changed, 76 insertions(+), 5 deletions(-)
 
 diff --git a/core/Makefile b/core/Makefile
-index 9f5ec7022..d9af0d1e1 100644
+index 9f5ec7022..eda923409 100644
 --- a/core/Makefile
 +++ b/core/Makefile
-@@ -1342,9 +1342,12 @@ ifneq ($(BOARD_BUILD_SYSTEM_ROOT_IMAGE),true)
- $(error Prebuilt bootimage is only supported for AB targets)
+@@ -1187,9 +1187,11 @@ endif # BUILDING_RAMDISK_IMAGE
+ # This is defined here since we may be building recovery as boot
+ # below and only want to define this once
+ ifneq ($(strip $(BOARD_KERNEL_BINARIES)),)
+-  BUILT_BOOTIMAGE_TARGET := $(foreach k,$(subst kernel,boot,$(BOARD_KERNEL_BINARIES)), $(PRODUCT_OUT)/$(k).img)
++  BUILT_BOOTIMAGE_TARGET := $(foreach k,$(subst kernel,boot,$(BOARD_KERNEL_BINARIES)), $(call intermediates-dir-for,PACKAGING,boot)/$(k).img)
++  MTK_BOOTIMAGE_TARGET := $(foreach k,$(subst kernel,boot,$(BOARD_KERNEL_BINARIES)), $(PRODUCT_OUT)/$(k).img)
+ else
+-  BUILT_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
++  BUILT_BOOTIMAGE_TARGET := $(call intermediates-dir-for,PACKAGING,boot)/boot.img
++  MTK_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
  endif
- INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
-+MTK_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
-+INSTALLED_BOOTIMAGE_TARGET := $(call intermediates-dir-for,PACKAGING,boot)/boot.img
+ 
+ ifdef BOARD_BOOTIMAGE_PARTITION_SIZE
+@@ -1345,6 +1347,7 @@ INSTALLED_BOOTIMAGE_TARGET := $(PRODUCT_OUT)/boot.img
  $(eval $(call copy-one-file,$(BOARD_PREBUILT_BOOTIMAGE),$(INSTALLED_BOOTIMAGE_TARGET)))
  else # BOARD_PREBUILT_BOOTIMAGE not defined
  INSTALLED_BOOTIMAGE_TARGET :=
