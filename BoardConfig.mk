@@ -145,6 +145,3 @@ MAIN_VBMETA_IN_BOOT := yes
 # We need this for apns-conf
 # We would like to override instead of merge
 BUILD_BROKEN_DUP_RULES := true
-
-# Broken rules
-BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
