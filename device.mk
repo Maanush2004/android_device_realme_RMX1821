@@ -63,6 +63,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.RMX1821
 
+# Telephony
+PRODUCT_PACKAGES += vendor.mediatek.hardware.videotelephony@1.0
+
 # Telephony Jars
 PRODUCT_BOOT_JARS += \
     mediatek-common \
@@ -102,6 +105,9 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
+# IMS
+$(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
 
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
