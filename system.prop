@@ -108,3 +108,6 @@ persist.dbg.wfc_avail_ovr=1
 
 # Charger
 ro.charger.enable_suspend=true
+
+#Screen recording lag fix
+debug.sf.enable_hwc_vds=0
