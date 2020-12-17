@@ -49,7 +49,6 @@ PRODUCT_PACKAGES += \
 # Init
 PRODUCT_PACKAGES += \
     fstab.mt6771 \
-    fstab.mt6771_system \
     init.RMX1821.rc \
     init.safailnet.rc \
     init.oppo.fingerprints.rc \
