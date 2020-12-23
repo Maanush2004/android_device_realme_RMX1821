@@ -89,6 +89,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     TetheringConfigOverlay
 
+# ImsInit hack
+PRODUCT_PACKAGES += \
+    ImsInit
+
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
