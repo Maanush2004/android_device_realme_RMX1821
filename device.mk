@@ -63,19 +63,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.RMX1821
 
-# Telephony
-PRODUCT_PACKAGES += vendor.mediatek.hardware.videotelephony@1.0
-
-# Telephony Jars
-PRODUCT_BOOT_JARS += \
-    mediatek-common \
-    mediatek-framework \
-    mediatek-ims-base \
-    mediatek-ims-common \
-    mediatek-telecom-common \
-    mediatek-telephony-base \
-    mediatek-telephony-common    
-
 # RcsService
 PRODUCT_PACKAGES += \
     RcsService
