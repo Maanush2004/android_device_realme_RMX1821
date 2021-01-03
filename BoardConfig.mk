@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Device Tree Path
-LOCAL_PATH := device/realme/RMX1821
+DEVICE_PATH := device/realme/RMX1821
 
 # Architecture
 TARGET_ARCH := arm64
@@ -67,7 +67,7 @@ TARGET_KERNEL_CLANG_COMPILE := true
 TARGET_KERNEL_CLANG_VERSION := r353983c1
 BOARD_KERNEL_SEPARATED_DTBO := true
 
-BOARD_CUSTOM_DTBOIMG_MK := $(LOCAL_PATH)/dtbo/dtbo.mk
+BOARD_CUSTOM_DTBOIMG_MK := $(DEVICE_PATH)/dtbo/dtbo.mk
 
 # AVB
 BOARD_AVB_ENABLE := true
@@ -99,7 +99,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_PRODUCT := system/product
 
 # System Properties
-TARGET_SYSTEM_PROP := $(LOCAL_PATH)/system.prop
+TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
@@ -118,7 +118,7 @@ BOARD_VNDK_VERSION := current
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.mt6771
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.mt6771
 
 # Dexpreopt
 ifeq ($(HOST_OS),linux)
@@ -129,23 +129,23 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # Graphics
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
 # Sepolicy
 TARGET_HAS_FUSEBLK_SEPOLICY_ON_VENDOR := true
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(LOCAL_PATH)/sepolicy/private
+BOARD_PLAT_PRIVATE_SEPOLICY_DIR := $(DEVICE_PATH)/sepolicy/private
 
 # DRM
 TARGET_ENABLE_MEDIADRM_64 := true
 
 # Releasetools
-TARGET_RELEASETOOLS_EXTENSIONS := $(LOCAL_PATH)
+TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
 # Framework Manifest
-DEVICE_FRAMEWORK_MANIFEST_FILE := $(LOCAL_PATH)/framework_manifest.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := $(DEVICE_PATH)/framework_manifest.xml
 
 # Append VBMeta to Boot Image
 MAIN_VBMETA_IN_BOOT := yes
@@ -156,5 +156,5 @@ BUILD_BROKEN_DUP_RULES := true
 
 
 #Board init
-TARGET_INIT_VENDOR_LIB := //$(LOCAL_PATH):libinit_RMX1821
+TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_RMX1821
 TARGET_RECOVERY_DEVICE_MODULES := libinit_RMX1821

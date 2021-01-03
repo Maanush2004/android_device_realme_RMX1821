@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/realme/RMX1821
+DEVICE_PATH := device/realme/RMX1821
 
 PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/lineage_RMX1821.mk 
