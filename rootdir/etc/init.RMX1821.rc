@@ -33,3 +33,7 @@ on post-fs
     
     # Override stock audio_policy_configuration.xml
     mount none /system/etc/audio_policy_configuration.xml /vendor/etc/audio_policy_configuration.xml bind
+    
+    # Bind mount libdpframework
+    mount none /system/lib/libdpframework.so /vendor/lib/libdpframework.so bind
+    mount none /system/lib64/libdpframework.so /vendor/lib64/libdpframework.so bind
