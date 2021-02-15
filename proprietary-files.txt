@@ -5,7 +5,7 @@ lib/libshowlogo.so
 lib/libsysenv_system.so
 
 # APNs
-etc/apns-conf.xml
+etc/apns-conf.xml:product/etc/apns-conf.xml
 
 # MTK-IMS
 -framework/mediatek-common.jar
