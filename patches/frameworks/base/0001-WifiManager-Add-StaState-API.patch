@@ -1,7 +1,7 @@
 From 293a36d105a5a12fa026400a96130197b99afa3e Mon Sep 17 00:00:00 2001
 From: Kshitij Gupta <kshitijgm@gmail.com>
 Date: Wed, 10 Jun 2020 14:19:12 +0000
-Subject: [PATCH] WifiManager: Add StaState API
+Subject: [PATCH 01/04] WifiManager: Add StaState API
 
 - Reversed out from miui_BEGONIAININGlobal_V11.0.2.0.QGGINXM_7e11a54a70_10.0
 
