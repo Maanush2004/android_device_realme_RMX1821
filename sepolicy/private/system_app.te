@@ -4,3 +4,7 @@ allow system_app sysfs_fps:file r_file_perms;
 
 # Allow system_app to set perf_profile prop
 set_prop(system_app, perf_prop)
+
+# Allow system_app to write to touchpanel nodes
+allow system_app proc_tp:dir search;
+allow system_app proc_tp:file rw_file_perms;
