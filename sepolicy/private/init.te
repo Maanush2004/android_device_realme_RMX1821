@@ -9,3 +9,6 @@ allow init sysfs_ged:file { w_file_perms setattr };
 
 # Allow init to change owner of /proc/cpufreq
 allow init proc_cpufreq:file { w_file_perms setattr };
+
+# Allow init to change owner of /sys/class/power_supply/usb/*
+allow init sysfs_battery_supply:file { w_file_perms setattr };
