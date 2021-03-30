@@ -11,7 +11,6 @@ on boot
     chown system system /proc/touchpanel/oppo_tp_limit_area
     chown system system /proc/touchpanel/oppo_tp_direction
     chown system system /proc/touchpanel/tp_fw_update
-    chown system system /proc/touchpanel/double_tap_enable
 
     # Update touchscreen firmware
     write /proc/touchpanel/tp_fw_update 1
@@ -21,6 +20,11 @@ on boot
 
     # Enable oppo's touchpanel direction
     write /proc/touchpanel/oppo_tp_direction 1
+
+    # DT2W
+    chmod 0660 /proc/touchpanel/double_tap_enable
+    chown system system /proc/touchpanel/double_tap_enable
+    write /proc/touchpanel/double_tap_enable 1
 
 on init
     mount none /vendor/lost+found /vendor/overlay bind
