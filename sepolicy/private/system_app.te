@@ -1,0 +1,3 @@
+# Allow system_app to read fps info node
+allow system_app sysfs_fps:dir search;
+allow system_app sysfs_fps:file r_file_perms;
