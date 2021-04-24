@@ -1,1 +1,5 @@
+type proc_cpufreq, fs_type, proc_type;
+type proc_gpufreq, fs_type, proc_type;
+type proc_ppm, fs_type, proc_type;
 type sysfs_fps, sysfs_type, fs_type;
+type sysfs_ged, sysfs_type, fs_type;
