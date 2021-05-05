@@ -90,13 +90,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.face.moto_unlock_service=true
 
-# Flipendo
-PRODUCT_PACKAGES += \
-    Flipendo
-
-PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/sysconfig/pixel_experience_2020.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/pixel_experience_2020.xml
-
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 

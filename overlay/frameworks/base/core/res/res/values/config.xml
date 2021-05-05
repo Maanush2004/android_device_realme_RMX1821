@@ -21,6 +21,9 @@
      for different hardware and product builds.  Do not translate. -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Whether device has screen with higher aspect ratio -->
+     <bool name="config_haveHigherAspectRatioScreen">true</bool>
     
     <!-- An Array of "[Connection name],[ConnectivityManager.TYPE_xxxx],
          [associated radio-type],[priority],[restoral-timer(ms)],[dependencyMet]  -->
@@ -330,7 +333,4 @@
     <!-- Flag specifying whether VT is available on device -->
     <bool name="config_device_vt_available">true</bool>
      
-    <!-- Package name that will receive an explicit manifest broadcast for
-         android.os.action.POWER_SAVE_MODE_CHANGED. -->
-    <string name="config_powerSaveModeChangedListenerPackage">com.google.android.flipendo</string>
 </resources>

@@ -1,6 +1,9 @@
 #
 # system.prop for Realme 3
 #
+# Camera
+vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,com.google.camera,org.pixelexperience.faceunlock
+vendor.camera.aux.packageblacklist=org.telegram.messenger,com.microsoft.teams,com.discord
 
 # Surfaceflinger
 debug.sf.enable_gl_backpressure=1
@@ -105,3 +108,6 @@ persist.dbg.wfc_avail_ovr=1
 
 # Charger
 ro.charger.enable_suspend=true
+
+#Screen recording lag fix
+debug.sf.enable_hwc_vds=0

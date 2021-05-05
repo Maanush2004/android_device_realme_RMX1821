@@ -23,7 +23,12 @@ on boot
     write /proc/touchpanel/oppo_tp_direction 1
 
 on post-fs
-    # Disable OEM Lights
+    on property:sys.boot_completed=1
+    # Restrict permissions to socket file 
+    # to hide Magisk & co.
+    chmod 440 /proc/net/unix
+	
+	# Disable OEM Lights
     mount none /dev/null vendor/lib/hw/lights.mt6771.so bind
     mount none /dev/null vendor/lib/hw/android.hardware.light@2.0-impl-mediatek.so bind
     mount none /dev/null vendor/bin/hw/android.hardware.light@2.0-service-mediatek bind
