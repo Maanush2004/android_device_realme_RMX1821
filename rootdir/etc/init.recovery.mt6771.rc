@@ -1,4 +1,6 @@
 on init
+    write /sys/class/leds/lcd-backlight/brightness 255
+    
     setprop sys.usb.configfs 1
     setprop sys.usb.ffs.aio_compat 1
 
