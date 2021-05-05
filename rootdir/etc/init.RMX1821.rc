@@ -22,6 +22,10 @@ on boot
     # Enable oppo's touchpanel direction
     write /proc/touchpanel/oppo_tp_direction 1
 
+on init
+    # Override vendor fstab
+    mount none /system/etc/fstab.mt6771 /vendor/etc/fstab.mt6771 bind
+
 on post-fs
     # Disable OEM Lights
     mount none /dev/null vendor/lib/hw/lights.mt6771.so bind
