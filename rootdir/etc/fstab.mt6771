@@ -6,9 +6,9 @@
 # 1 "<built-in>" 2
 # 1 "vendor/mediatek/proprietary/hardware/fstab/mt6771/fstab.in.mt6771" 2
 # 169 "vendor/mediatek/proprietary/hardware/fstab/mt6771/fstab.in.mt6771"
-/dev/block/platform/bootdevice/by-name/system /system ext4 ro wait,,avb=boot,,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,async_discard
+/dev/block/platform/bootdevice/by-name/system /system ext4 ro wait,first_stage_mount,async_discard
 
-/dev/block/platform/bootdevice/by-name/vendor /vendor ext4 ro wait,,avb,,first_stage_mount,async_discard
+/dev/block/platform/bootdevice/by-name/vendor /vendor ext4 ro wait,first_stage_mount,async_discard
 # 183 "vendor/mediatek/proprietary/hardware/fstab/mt6771/fstab.in.mt6771"
 /dev/block/platform/bootdevice/by-name/cache /cache ext4 noatime,nosuid,nodev,noauto_da_alloc,async_discard wait,check,formattable
 
