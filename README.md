@@ -23,8 +23,13 @@ This device tree can be used to build LineageOS-17.1 for Realme 3/3i devices wit
 
 ## Applying [patches](https://github.com/Maanush2004/android_device_realme_RMX1821/tree/lineage-17.1-rmui/patches) in their respective directories of ROM source is mandatory.
 
-## For faceunlock, clone [android_external_motorola_faceunlock](https://gitlab.com/SamarV-121/android_external_motorola_faceunlock) into external/motorola/faceunlock.
 
-## For IMS,
-## clone [vendor_mediatek_ims](https://github.com/PixelExperience/vendor_mediatek_ims) into vendor/mediatek/ims and
-## clone [vendor_mediatek_interfaces](https://github.com/PixelExperience/vendor_mediatek_interfaces) into vendor/mediatek/interfaces
+### Dependencies
+How to clone dependencies required for building ROMs for Realme 3/3i?
+```
+git clone -b lineage-18.1-rmui https://github.com/Maanush2004/android_kernel_realme_RMX1821 kernel/realme/RMX1821
+git clone -b lineage-18.1-rmui https://github.com/Maanush2004/android_vendor_realme_RMX1821 vendor/realme/RMX1821
+git clone -b 11 https://gitlab.com/SamarV-121/android_external_motorola_faceunlock external/motorola/faceunlock
+git clone -b eleven https://github.com/PixelExperience/vendor_mediatek_ims vendor/mediatek/ims
+git clone -b eleven https://github.com/PixelExperience/vendor_mediatek_interfaces vendor/mediatek/interfaces
+```
