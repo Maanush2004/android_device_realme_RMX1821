@@ -22,6 +22,7 @@ Front Camera | 13 MP, f/2.0, (wide), 1/3.1", 1.12µm
 This device tree can be used to build LineageOS-18.1 for Realme 3/3i devices with RealmeUI vendor
 
 ### Applying [patches](https://github.com/Maanush2004/android_device_realme_RMX1821/tree/lineage-18.1-rmui/patches) in their respective directories of ROM source is mandatory.
+How to apply patches? It is really easy just use this command: `patch -p1 <`
 
 
 ### Dependencies
