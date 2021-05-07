@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# VNDK
+PRODUCT_EXTRA_VNDK_VERSIONS := 29
+PRODUCT_TARGET_VNDK_VERSION := 29
+
 # Permissions
 PRODUCT_COPY_FILES := \
 	frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.fingerprint.xml \
@@ -67,10 +71,6 @@ PRODUCT_PACKAGES += \
 # RcsService
 PRODUCT_PACKAGES += \
     RcsService
-
-# VNDK
-PRODUCT_EXTRA_VNDK_VERSIONS := 29
-PRODUCT_TARGET_VNDK_VERSION := 29
 
 # HIDL
 PRODUCT_PACKAGES += \
