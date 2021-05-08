@@ -13,37 +13,20 @@ debug.sf.early_gl_phase_offset_ns=3000000
 debug.sf.early_gl_app_phase_offset_ns=15000000
 debug.sf.early_phase_offset_ns=1500000
 
+# RIL
 rild.libpath=mtk-ril.so
 rild.libargs=-d /dev/ttyC0
 
-
-# MTK, Infinity, 20090720 {
+# Wi-Fi
 wifi.interface=wlan0
-# MTK, Infinity, 20090720 }
-
-# MTK, mtk03034, 20101210 {
 ro.mediatek.wlan.wsc=1
-# MTK, mtk03034 20101210}
-# MTK, mtk03034, 20110318 {
 ro.mediatek.wlan.p2p=1
-# MTK, mtk03034 20110318}
-
-# MTK, mtk03034, 20101213 {
 mediatek.wlan.ctia=0
-# MTK, mtk03034 20101213}
-
-
-#
 wifi.tethering.interface=ap0
-#
-
-ro.opengles.version=196610
-#ro.kernel.qemu=1
-#ro.kernel.qemu.gles=0
-
 wifi.direct.interface=p2p0
-#dalvik.vm.heapgrowthlimit=256m
-#dalvik.vm.heapsize=512m
+
+# OpenGL
+ro.opengles.version=196610
 
 # USB MTP WHQL
 ro.sys.usb.mtp.whql.enable=0
@@ -51,6 +34,7 @@ ro.sys.usb.mtp.whql.enable=0
 # Power off opt in IPO
 sys.ipo.pwrdncap=2
 
+# MTP
 ro.sys.usb.storage.type=mtp
 
 # USB BICR function
@@ -59,40 +43,28 @@ ro.sys.usb.bicr=no
 # USB Charge only function
 ro.sys.usb.charging.only=yes
 
-# audio
+# Audio
 ro.camera.sound.forced=0
 ro.audio.silent=0
 
+# Zygote
 ro.zygote.preload.enable=0
 
-# temporary enables NAV bar (soft keys)
+# NavBAR
 qemu.hw.mainkeys=0
 
+# Kernel
 ro.kernel.zio=38,108,105,16
-#ro.kernel.qemu=1
-#ro.kernel.qemu.gles=0
-#ro.boot.selinux=disable
 
-# Disable dirty region for Mali
-#debug.hwui.render_dirty_regions=false
-
-#ifneq ($(strip $(ODM_HQ_EDIT)),yes)
-#liyan@ODM.Multimedia.LCD  2018/10/03 add for LCD bring up
-#ro.sf.lcd_density=480
-#else #ODM_HQ_EDIT
-#ro.sf.lcd_density=320
-#endif #ODM_HQ_EDIT
-
-# performance
+# Performance
 ro.mtk_perf_simple_start_win=1
 ro.mtk_perf_fast_start_win=1
 ro.mtk_perf_response_time=1
 
-# disable ipo for development
+# Disable ipo for development
 sys.ipo.disable=1
 
-#ifdef VENDOR_EDIT
-#Wensheng.Wang@PSW.AD.Stability.Compatibility,2018/11/27,Add coordinate property for application adaptation
+# OPPO
 ro.oppo.screen.heteromorphism=264,0:456,54
 
 # Zygote preforking
