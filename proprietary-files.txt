@@ -1,4 +1,4 @@
-# All files are taken from RMX1821EX_11.C.19, unless their sha1sum is specified
+# All files are taken from RMX1821EX_11.C.20, unless their sha1sum is specified
 
 # Offline Charging
 bin/kpoc_charger
