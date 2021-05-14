@@ -6,6 +6,9 @@ on fs
     mkdir /mnt/vendor/persist 0777 system system
     setprop crypto.ready 1
 
+    # Erase the para partition to prevent recovery-looping
+    start erase_para
+
 on init
     setprop sys.usb.configfs 1
     setprop sys.usb.ffs.aio_compat 1
@@ -69,6 +72,13 @@ service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
     group root
     disabled
     seclabel u:r:recovery:s0
+
+service erase_para /sbin/dd if=/dev/zero of=/dev/block/by-name/para
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+    oneshot
 
 on property:hwservicemanager.ready=true
     start hal_cryptoeng_oppo
