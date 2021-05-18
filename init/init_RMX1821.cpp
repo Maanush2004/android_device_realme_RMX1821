@@ -32,8 +32,13 @@
 #include <sys/_system_properties.h>
 
 #include <android-base/properties.h>
+#include <android-base/file.h>
+#include <android-base/strings.h>
 #include "property_service.h"
 #include "vendor_init.h"
+
+using android::base::ReadFileToString;
+using android::base::Trim;
 
 void property_override(char const prop[], char const value[])
 {
@@ -49,6 +54,45 @@ void property_override(char const prop[], char const value[])
 void property_override_prop(char const system_prop[], char const value[])
 {
     property_override(system_prop, value);
+}
+
+static void init_variant_specific_props()
+{
+    char const *operatorName_file = "/proc/oppoVersion/operatorName";
+    std::string operatorName;
+    
+    if (ReadFileToString(operatorName_file, &operatorName)) {
+    /*
+     * Variants of Realme 3 and Realme 3i can be distinguished 
+     * by the value of /proc/oppoVersion/operatorName
+     *
+     * 131 -> Realme 3  RMX1821
+     * 133 -> Realme 3  RMX1825
+     * 137 -> Realme 3i RMX1827
+     * ?   -> Realme 3  RMX1822
+     * ?   -> Realme 3i RMX1823
+     * TODO: Find the values for RMX1822 and RMX1823
+     */
+        if (Trim(operatorName) == "133") {
+            property_override("ro.product.system.device", "RMX1825");
+            property_override("ro.product.system.model", "RMX1825");
+            property_override("ro.build.product", "RMX1825");
+            property_override("ro.lineage.device", "RMX1825");
+            property_override("ro.product.product.device", "RMX1825");
+            property_override("ro.product.product.model", "RMX1825");
+            property_override("ro.product.system_ext.device", "RMX1825");
+            property_override("ro.product.system_ext.model", "RMX1825");
+        } else if (Trim(operatorName) == "137") {
+            property_override("ro.product.system.device", "RMX1827");
+            property_override("ro.product.system.model", "RMX1827");
+            property_override("ro.build.product", "RMX1827");
+            property_override("ro.lineage.device", "RMX1827");
+            property_override("ro.product.product.device", "RMX1827");
+            property_override("ro.product.product.model", "RMX1827");
+            property_override("ro.product.system_ext.device", "RMX1827");
+            property_override("ro.product.system_ext.model", "RMX1827");
+       }
+    }
 }
 
 /* From Magisk@jni/magiskhide/hide_utils.c */
@@ -94,6 +138,9 @@ static void workaround_snet_properties() {
 
 void vendor_load_properties()
 {
+    // Set variant props
+    init_variant_specific_props();
+
     // fingerprint
     property_override("ro.build.description", "coral-user 11 RQ2A.210505.002 7246365 release-keys");
     property_override_prop("ro.build.fingerprint", "google/coral/coral:11/RQ2A.210505.002/7246365:user/release-keys");
