@@ -63,7 +63,6 @@ PRODUCT_PACKAGES += \
     fstab.mt6771 \
     fstab.mt6771_vendor \
     init.RMX1821.rc \
-    init.safailnet.rc \
     init.oppo.fingerprints.rc \
     init.ago.rc \
     fstab.enableswap \
