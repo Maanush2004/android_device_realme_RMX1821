@@ -28,3 +28,5 @@ This device tree can be used to build LineageOS-17.1 for Realme 3/3i devices wit
 ## For IMS,
 ## clone [vendor_mediatek_ims](https://github.com/PixelExperience/vendor_mediatek_ims) into vendor/mediatek/ims and
 ## clone [vendor_mediatek_interfaces](https://github.com/PixelExperience/vendor_mediatek_interfaces) into vendor/mediatek/interfaces
+
+## For RealmeParts, clone [android_packages_apps_RealmeParts](https://github.com/Realme-G70-Series/android_packages_apps_RealmeParts) into packages/apps/RealmeParts
