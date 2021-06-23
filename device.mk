@@ -65,7 +65,8 @@ PRODUCT_PACKAGES += \
     init.oppo.fingerprints.rc \
     init.ago.rc \
     fstab.enableswap \
-    perf_profile.sh
+    perf_profile.sh \
+    init.recovery.mt6771.rc
 
 # Doze
 PRODUCT_PACKAGES += \
