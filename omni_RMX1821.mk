@@ -17,6 +17,9 @@
 # Inherit some common product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
 
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+
 PRODUCT_NAME := omni_RMX1821
 PRODUCT_DEVICE := RMX1821
 PRODUCT_MANUFACTURER := Realme
