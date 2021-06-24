@@ -72,3 +72,14 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # Use mke2fs to create ext4 images
 TARGET_USES_MKE2FS := true
+
+# TWRP stuff
+TW_THEME := portrait_hdpi
+TW_EXCLUDE_SUPERSU := true
+TW_INCLUDE_FB2PNG := true
+TW_REBOOT_RECOVERY := true
+RECOVERY_SDCARD_ON_DATA := true
+TW_DEFAULT_EXTERNAL_STORAGE := true
+TW_HAVE_SELINUX := true
+TW_DEFAULT_LANGUAGE := en
+TW_HAS_MTP := true
