@@ -60,3 +60,7 @@ vendor/etc/diracmobile.config:product/vendor_overlay/29/etc/diracmobile.config|d
 vendor/etc/diracvdd.bin:product/vendor_overlay/29/etc/diracvdd.bin|f8730855d85648783df7203337e4ba49d5bc17fa
 vendor/lib/libDiracAPI_SHARED.so:product/vendor_overlay/29/lib/libDiracAPI_SHARED.so|42b49679d38eca93fead05ea06ddbdc8108fd4b1
 vendor/lib/soundfx/libdirac.so:product/vendor_overlay/29/lib/soundfx/libdirac.so|f63826a905b520fa524e4c1b147be7cf65240953
+
+# Mtk FM Radio
+-product/lib/libfmjni.so
+-product/lib64/libfmjni.so
