@@ -1,3 +1,11 @@
+import /trustonic.rc
+import /tee.rc
+
+on fs
+    install_keyring
+    mkdir /mnt/vendor/persist 0777 system system
+    setprop crypto.ready 1
+
 on init
     write /sys/class/leds/lcd-backlight/brightness 255
     
@@ -40,3 +48,65 @@ service init-recovery-mt6771-sh /init.recovery.mt6771.sh
     user root
     group root
     seclabel u:r:recovery:s0
+
+service keystore_auth /system/bin/keystore_auth
+    oneshot
+    user system
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service keystore /system/bin/keystore /tmp/misc/keystore
+    user root
+    group root drmrpc readproc
+    disabled
+    seclabel u:r:recovery:s0
+    
+#Add for OPPO FBE
+service hal_cryptoeng_oppo /system/bin/vendor.oppo.hardware.cryptoeng@1.0-service
+    user root
+    group root drmrpc
+    disabled
+    seclabel u:r:recovery:s0
+
+service keymaster-3-0 /system/bin/android.hardware.keymaster@3.0-service.trustonic
+    user root
+    group root drmrpc
+    disabled
+    seclabel u:r:recovery:s0
+
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+on property:hwservicemanager.ready=true
+    start hal_cryptoeng_oppo
+    start mobicore
+    start keymaster-3-0
+    start gatekeeper-1-0
+
+on property:ro.crypto.state=unsupported
+    stop hal_cryptoeng_oppo
+    stop mobicore
+    stop servicemanager
+    stop hwservicemanager
+    stop keymaster-3-0
+    stop gatekeeper-1-0
+
+on property:ro.crypto.state=unencrypted
+    stop hal_cryptoeng_oppo
+    stop mobicore
+    stop servicemanager
+    stop hwservicemanager
+    stop keymaster-3-0
+    stop gatekeeper-1-0
+
+on property:twrp.decrypt.done=true
+    stop hal_cryptoeng_oppo
+    stop mobicore
+    stop servicemanager
+    stop hwservicemanager
+    stop keymaster-3-0
+    stop gatekeeper-1-0
