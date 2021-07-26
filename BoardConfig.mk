@@ -86,6 +86,8 @@ TW_H_OFFSET := -54
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_OZIP_DECRYPT_KEY := "ACAC1E13A72531AE4A1B22BB31C1CC22"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
+TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
+TW_MAX_BRIGHTNESS := 2047
 
 # Crypto
 PLATFORM_SECURITY_PATCH := 2099-12-31
