@@ -47,7 +47,6 @@ on post-fs
 service init-recovery-mt6771-sh /init.recovery.mt6771.sh
     user root
     group root
-    seclabel u:r:recovery:s0
 
 service keystore_auth /system/bin/keystore_auth
     oneshot
