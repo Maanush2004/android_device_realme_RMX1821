@@ -106,6 +106,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 # IMS
 $(call inherit-product, vendor/realme-ims/realme-ims-vendor.mk)
 
+PRODUCT_PACKAGES += \
+    libshim_vtservice
+
 # Parts
 $(call inherit-product-if-exists, packages/apps/RealmeParts/parts.mk)
 
