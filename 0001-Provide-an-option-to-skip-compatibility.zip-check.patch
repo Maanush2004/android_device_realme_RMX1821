@@ -1,0 +1,118 @@
+From c1d61c6c0aef256a8a5f18c7c47c35d4247c706c Mon Sep 17 00:00:00 2001
+From: Mauronofrio Matarrese <poronofrio@gmail.com>
+Date: Sat, 19 Jun 2021 09:20:26 +0530
+Subject: [PATCH] Provide an option to skip compatibility.zip check
+
+This is only a placebo, actually the real problem is that in TWRP some
+device doesn't properly set ro.boot.avb_version or some others avb flags.
+I think this should be merged to allow people to make faster working TWRP.
+
+[@sb6596] Add a checkbox option in UI to skip compatibility.zip check
+
+ A handy option for users to skip compatibility.zip check
+
+Taken from https://gerrit.twrp.me/c/android_bootable_recovery/+/1677
+
+Co-authored-by: ShubhamB <shubhamprince111@gmail.com>
+---
+ data.cpp                          | 1 +
+ gui/theme/common/languages/en.xml | 1 +
+ gui/theme/common/portrait.xml     | 6 ++++++
+ twrpinstall/twinstall.cpp         | 6 ++++--
+ variables.h                       | 1 +
+ 5 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/data.cpp b/data.cpp
+index ffb9b42..90b067f 100755
+--- a/data.cpp
++++ b/data.cpp
+@@ -748,6 +748,7 @@ void DataManager::SetDefaultValues()
+ 
+ 	mPersist.SetValue(TW_INSTALL_REBOOT_VAR, "0");
+ 	mPersist.SetValue(TW_SIGNED_ZIP_VERIFY_VAR, "0");
++	mPersist.SetValue(TW_SKIP_COMPATIBILITY, "0");
+ 	mPersist.SetValue(TW_DISABLE_FREE_SPACE_VAR, "0");
+ 	mPersist.SetValue(TW_FORCE_DIGEST_CHECK_VAR, "0");
+ 	mPersist.SetValue(TW_USE_COMPRESSION_VAR, "0");
+diff --git a/gui/theme/common/languages/en.xml b/gui/theme/common/languages/en.xml
+index 35b2bbe..73e2b5c 100755
+--- a/gui/theme/common/languages/en.xml
++++ b/gui/theme/common/languages/en.xml
+@@ -80,6 +80,7 @@
+ 		<string name="zip_warn2">software and render your device unusable.</string>
+ 		<string name="zip_back_cancel">Press back to cancel adding this zip.</string>
+ 		<string name="zip_back_clear">Press back button to clear the queue.</string>
++		<string name="zip_err_compatibility">Skip Treble compatibility error</string>
+ 		<string name="folder">Folder:</string>
+ 		<string name="file">File:</string>
+ 		<string name="zip_sig_chk">Zip signature verification</string>
+diff --git a/gui/theme/common/portrait.xml b/gui/theme/common/portrait.xml
+index 78677cb..7b79bd6 100755
+--- a/gui/theme/common/portrait.xml
++++ b/gui/theme/common/portrait.xml
+@@ -412,6 +412,9 @@
+ 				<listitem name="{@skip_digest_zip_chk=Skip Digest check before installing zip}">
+ 					<data variable="tw_skip_digest_check_zip"/>
+ 				</listitem>
++				<listitem name="{@zip_err_compatibility=Skip Treble compatibility error}">
++					<data variable="tw_skip_compatibility"/>
++				</listitem>
+ 				<listitem name="{@install_reboot_chk=Reboot after installation is complete}">
+ 					<data variable="tw_install_reboot"/>
+ 				</listitem>
+@@ -3370,6 +3373,9 @@
+ 				<listitem name="{@zip_sig_chk=Zip signature verification}">
+ 					<data variable="tw_signed_zip_verify"/>
+ 				</listitem>
++				<listitem name="{@zip_err_compatibility=Skip Treble compatibility error}">
++					<data variable="tw_skip_compatibility"/>
++				</listitem>
+ 				<listitem name="{@install_reboot_chk=Reboot after installation is complete}">
+ 					<data variable="tw_install_reboot"/>
+ 				</listitem>
+diff --git a/twrpinstall/twinstall.cpp b/twrpinstall/twinstall.cpp
+index 84378f0..d4714f9 100755
+--- a/twrpinstall/twinstall.cpp
++++ b/twrpinstall/twinstall.cpp
+@@ -352,7 +352,7 @@ static int Run_Update_Binary(const char *path, int* wipe_cache, zip_type ztype)
+ }
+ 
+ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
+-	int ret_val, zip_verify = 1, unmount_system = 1;
++	int ret_val, zip_verify = 1, unmount_system = 1, skip_compatibility_check = 1;
+ 
+ 	gui_msg(Msg("installing_zip=Installing zip file '{1}'")(path));
+ 	if (strlen(path) < 9 || strncmp(path, "/sideload", 9) != 0) {
+@@ -370,6 +370,8 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
+ 
+ 	DataManager::GetValue(TW_UNMOUNT_SYSTEM, unmount_system);
+ 
++	DataManager::GetValue(TW_SKIP_COMPATIBILITY, skip_compatibility_check);
++
+ #ifndef TW_OEM_BUILD
+ 	DataManager::GetValue(TW_SIGNED_ZIP_VERIFY_VAR, zip_verify);
+ #endif
+@@ -426,7 +428,7 @@ int TWinstall_zip(const char* path, int* wipe_cache, bool check_for_digest) {
+ 	if (FindEntry(Zip, update_binary_name, &update_binary_entry) == 0) {
+ 		LOGINFO("Update binary zip\n");
+ 		// Additionally verify the compatibility of the package.
+-		if (!verify_package_compatibility(Zip)) {
++		if (!skip_compatibility_check && !verify_package_compatibility(Zip)) {
+ 			gui_err("zip_compatible_err=Zip Treble compatibility error!");
+ 			CloseArchive(Zip);
+ 			ret_val = INSTALL_CORRUPT;
+diff --git a/variables.h b/variables.h
+index 3597b80..01c766b 100755
+--- a/variables.h
++++ b/variables.h
+@@ -126,6 +126,7 @@
+ // #define TW_ALWAYS_RMRF              "tw_always_rmrf"
+ 
+ #define TW_SHOW_DUMLOCK             "tw_show_dumlock"
++#define TW_SKIP_COMPATIBILITY       "tw_skip_compatibility"
+ #define TW_HAS_INJECTTWRP           "tw_has_injecttwrp"
+ #define TW_INJECT_AFTER_ZIP         "tw_inject_after_zip"
+ #define TW_HAS_DATADATA             "tw_has_datadata"
+-- 
+2.31.1
+
