@@ -19,11 +19,11 @@ Front Camera | 13 MP, f/2.0, (wide), 1/3.1", 1.12µm
 
 ---
 
-This device tree can be used to build LineageOS-18.1 for Realme 3/3i devices with RealmeUI vendor
+This device tree can be used to build LineageOS-19.0 for Realme 3/3i devices with RealmeUI vendor
 
-## Applying [patches](https://github.com/Maanush2004/android_device_realme_RMX1821/tree/lineage-18.1-rmui/patches) in their respective directories of ROM source is mandatory.
+## Applying [patches](https://github.com/Maanush2004/android_device_realme_RMX1821/tree/lineage-19.0-rmui/patches) in their respective directories of ROM source is mandatory.
 
-## For faceunlock, clone [android_external_motorola_faceunlock](https://gitlab.com/SamarV-121/android_external_motorola_faceunlock) into external/motorola/faceunlock.
+## For faceunlock, clone [android_external_motorola_faceunlock](https://gitlab.com/SamarV-121/android_external_motorola_faceunlock) into external/motorola/faceunlock. (Not ready for A12 yet. Don't clone)
 
 ## For IMS,
 ## clone [vendor_mediatek_ims](https://github.com/PixelExperience/vendor_mediatek_ims) into vendor/mediatek/ims and
