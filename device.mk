@@ -90,8 +90,8 @@ PRODUCT_PACKAGES += \
     TetheringConfigOverlay
 
 # Symbols
-PRODUCT_PACKAGES += \
-    libshim_showlogo
+#PRODUCT_PACKAGES += \
+#    libshim_showlogo
 
 # Face Unlock
 #PRODUCT_PACKAGES += \
@@ -110,7 +110,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 #$(call inherit-product, vendor/mediatek/ims/mtk-engi.mk)
 
 # Parts
-$(call inherit-product-if-exists, packages/apps/RealmeParts/parts.mk)
+#$(call inherit-product-if-exists, packages/apps/RealmeParts/parts.mk)
 
 # Call proprietary blob setup
 $(call inherit-product-if-exists, vendor/realme/RMX1821/RMX1821-vendor.mk)
