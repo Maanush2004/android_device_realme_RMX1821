@@ -14,13 +14,13 @@
 // limitations under the License.
 //
 
-//cc_library_static {
-//    name: "libinit_RMX1821",
-//    recovery_available: true,
-//    srcs: ["init_RMX1821.cpp"],
-//    whole_static_libs: ["libbase"],
-//    include_dirs: [
-//        "system/core/base/include",
-//        "system/core/init"
-//    ]
-//}
+cc_library_static {
+    name: "libinit_RMX1821",
+    recovery_available: true,
+    srcs: ["init_RMX1821.cpp"],
+    whole_static_libs: ["libbase"],
+    include_dirs: [
+        "system/libbase/include",
+        "system/core/init"
+    ]
+}
