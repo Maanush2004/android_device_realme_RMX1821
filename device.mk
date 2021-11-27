@@ -54,8 +54,8 @@ PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.RMX1821
 	
 # ImsInit hack
-#PRODUCT_PACKAGES += \
-#    ImsInit
+PRODUCT_PACKAGES += \
+    ImsInit
 
 # Init
 PRODUCT_PACKAGES += \
@@ -76,19 +76,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service.RMX1821
 
-# Telephony Jars
-PRODUCT_BOOT_JARS += \
-    mediatek-common \
-    mediatek-framework \
-    mediatek-ims-base \
-    mediatek-ims-common \
-    mediatek-telecom-common \
-    mediatek-telephony-base \
-    mediatek-telephony-common    
-
 # RcsService
-#PRODUCT_PACKAGES += \
-#    RcsService
+PRODUCT_PACKAGES += \
+    RcsService
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -114,7 +104,7 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # IMS
-#$(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
+$(call inherit-product, vendor/realme-ims/realme-ims-vendor.mk)
 
 # Parts
 $(call inherit-product-if-exists, packages/apps/RealmeParts/parts.mk)
