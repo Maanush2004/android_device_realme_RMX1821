@@ -1,1 +1,2 @@
 persist.perf_profile        u:object_r:perf_prop:s0
+persist.vendor.fingerprint.fp_id u:object_r:oppo_fingerprint_prop:s0
