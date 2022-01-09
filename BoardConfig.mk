@@ -108,9 +108,7 @@ TARGET_IGNORES_FTP_PPTP_CONNTRACK_FAILURE := true
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # Symbols
-TARGET_LD_SHIM_LIBS += \
-        /system/lib/libshowlogo.so|libshim_showlogo.so \
-        /system/lib/libsink.so|libshim_vtservice.so
+TARGET_LD_SHIM_LIBS := /system/lib/libshowlogo.so|libshim_showlogo.so
 
 # Treble
 BOARD_VNDK_VERSION := current
