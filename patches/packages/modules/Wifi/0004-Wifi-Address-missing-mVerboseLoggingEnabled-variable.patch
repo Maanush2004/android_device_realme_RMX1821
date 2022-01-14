@@ -1,0 +1,26 @@
+From 7b9432c823186c104df4cad6222c6e2add6f4503 Mon Sep 17 00:00:00 2001
+From: Sarthak Roy <sarthakroy2002@gmail.com>
+Date: Sun, 10 Oct 2021 17:03:42 +0000
+Subject: [PATCH 4/4] Wifi: Address missing mVerboseLoggingEnabled variable
+
+Signed-off-by: Sarthak Roy <sarthakroy2002@gmail.com>
+---
+ service/java/com/android/server/wifi/WifiServiceImpl.java | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/service/java/com/android/server/wifi/WifiServiceImpl.java b/service/java/com/android/server/wifi/WifiServiceImpl.java
+index 02692b0e6..5f4425742 100644
+--- a/service/java/com/android/server/wifi/WifiServiceImpl.java
++++ b/service/java/com/android/server/wifi/WifiServiceImpl.java
+@@ -235,6 +235,8 @@ public class WifiServiceImpl extends BaseWifiService {
+ 
+     private final DefaultClientModeManager mDefaultClientModeManager;
+ 
++    private boolean mVerboseLoggingEnabled = false;
++
+     /**
+      * Callback for use with LocalOnlyHotspot to unregister requesting applications upon death.
+      */
+-- 
+2.30.2
+
