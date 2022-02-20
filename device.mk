@@ -106,6 +106,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 # IMS
 $(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
 
+# EngineeringMode
+$(call inherit-product, vendor/mediatek/ims/mtk-engi.mk)
+
 # Parts
 $(call inherit-product-if-exists, packages/apps/RealmeParts/parts.mk)
 
