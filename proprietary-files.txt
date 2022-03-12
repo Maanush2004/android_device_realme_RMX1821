@@ -47,3 +47,8 @@ lib64/libmtkshifter.so
 lib64/libvcodec_cap.so
 lib64/libvcodec_capenc.so
 lib64/vendor.mediatek.hardware.videotelephony@1.0.so
+
+# EngineerMode
+-priv-app/EngineerMode/EngineerMode.apk
+lib/libem_support_jni.so
+lib64/libem_support_jni.so
