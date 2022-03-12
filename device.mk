@@ -90,8 +90,8 @@ PRODUCT_PACKAGES += \
     TetheringConfigOverlay
 
 # Symbols
-#PRODUCT_PACKAGES += \
-#    libshim_showlogo
+PRODUCT_PACKAGES += \
+    libshim_showlogo
 
 # Face Unlock
 #PRODUCT_PACKAGES += \
