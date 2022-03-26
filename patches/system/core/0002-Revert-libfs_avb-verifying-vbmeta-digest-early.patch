@@ -1,0 +1,79 @@
+From 08889d8a4e03f2b1fc8aecb609011b960831f876 Mon Sep 17 00:00:00 2001
+From: alibei <sebastiankotzias83@gmail.com>
+Date: Fri, 22 Oct 2021 20:48:50 +0200
+Subject: [PATCH] Revert "libfs_avb: verifying vbmeta digest early"
+
+In the console-ramoops-0 log, it shows this on tucana:
+init: [libfs_avb]Failed to verify vbmeta digest
+init: [libfs_avb]vbmeta digest error isn't allowed
+
+By reverting this commit, the phone does continue to boot.
+I don't know if this affects other phones too.
+
+This reverts commit ec10d3cf6e328da90dd4a388761d2d26543fce8f.
+
+Change-Id: Ifcb1a85bb278c6282b669b9e692e8f24775ac3f8
+---
+ fs_mgr/libfs_avb/fs_avb.cpp | 37 +++++++++++++++++++------------------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
+
+diff --git a/fs_mgr/libfs_avb/fs_avb.cpp b/fs_mgr/libfs_avb/fs_avb.cpp
+index 1da71176c8..a0eda29d2b 100644
+--- a/fs_mgr/libfs_avb/fs_avb.cpp
++++ b/fs_mgr/libfs_avb/fs_avb.cpp
+@@ -433,16 +433,6 @@ AvbUniquePtr AvbHandle::Open() {
+     // Sets the MAJOR.MINOR for init to set it into "ro.boot.avb_version".
+     avb_handle->avb_version_ = StringPrintf("%d.%d", AVB_VERSION_MAJOR, AVB_VERSION_MINOR);
+ 
+-    // Verifies vbmeta structs against the digest passed from bootloader in kernel cmdline.
+-    std::unique_ptr<AvbVerifier> avb_verifier = AvbVerifier::Create();
+-    if (!avb_verifier || !avb_verifier->VerifyVbmetaImages(avb_handle->vbmeta_images_)) {
+-        LERROR << "Failed to verify vbmeta digest";
+-        if (!allow_verification_error) {
+-            LERROR << "vbmeta digest error isn't allowed ";
+-            return nullptr;
+-        }
+-    }
+-
+     // Checks whether FLAGS_VERIFICATION_DISABLED is set:
+     //   - Only the top-level vbmeta struct is read.
+     //   - vbmeta struct in other partitions are NOT processed, including AVB HASH descriptor(s)
+@@ -453,16 +443,27 @@ AvbUniquePtr AvbHandle::Open() {
+     bool verification_disabled = ((AvbVBMetaImageFlags)vbmeta_header.flags &
+                                   AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED);
+ 
+-    // Checks whether FLAGS_HASHTREE_DISABLED is set.
+-    //   - vbmeta struct in all partitions are still processed, just disable
+-    //     dm-verity in the user space.
+-    bool hashtree_disabled =
+-            ((AvbVBMetaImageFlags)vbmeta_header.flags & AVB_VBMETA_IMAGE_FLAGS_HASHTREE_DISABLED);
+-
+     if (verification_disabled) {
+         avb_handle->status_ = AvbHandleStatus::kVerificationDisabled;
+-    } else if (hashtree_disabled) {
+-        avb_handle->status_ = AvbHandleStatus::kHashtreeDisabled;
++    } else {
++        // Verifies vbmeta structs against the digest passed from bootloader in kernel cmdline.
++        std::unique_ptr<AvbVerifier> avb_verifier = AvbVerifier::Create();
++        if (!avb_verifier) {
++            LERROR << "Failed to create AvbVerifier";
++            return nullptr;
++        }
++        if (!avb_verifier->VerifyVbmetaImages(avb_handle->vbmeta_images_)) {
++            LERROR << "VerifyVbmetaImages failed";
++            return nullptr;
++        }
++
++        // Checks whether FLAGS_HASHTREE_DISABLED is set.
++        bool hashtree_disabled = ((AvbVBMetaImageFlags)vbmeta_header.flags &
++                                  AVB_VBMETA_IMAGE_FLAGS_HASHTREE_DISABLED) ||
++                                  allow_verification_error;
++        if (hashtree_disabled) {
++            avb_handle->status_ = AvbHandleStatus::kHashtreeDisabled;
++        }
+     }
+ 
+     LINFO << "Returning avb_handle with status: " << avb_handle->status_;
+-- 
+2.32.0
+
