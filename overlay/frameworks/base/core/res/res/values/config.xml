@@ -245,7 +245,7 @@
     <bool name="config_enableWifiDisplay">true</bool>
 
      <!-- Height of the status bar -->
-     <dimen name="status_bar_height_portrait">32.0dip</dimen>
+     <dimen name="status_bar_height">32.0dip</dimen>
      
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
