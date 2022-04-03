@@ -100,7 +100,7 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # IMS
-$(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
+$(call inherit-product, vendor/realme/RMX1821-ims/RMX1821-vendor.mk)
 
 # EngineeringMode
 $(call inherit-product, vendor/mediatek/ims/mtk-engi.mk)
