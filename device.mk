@@ -52,10 +52,6 @@ PRODUCT_SOONG_NAMESPACES += \
 # Lights
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.RMX1821
-	
-# ImsInit hack
-PRODUCT_PACKAGES += \
-    ImsInit
 
 # Init
 PRODUCT_PACKAGES += \
