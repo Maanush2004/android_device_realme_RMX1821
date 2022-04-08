@@ -46,7 +46,7 @@ wifi.direct.interface=p2p0
 #dalvik.vm.heapsize=512m
 
 # Iorap
-iorapd.perfetto.enable=true
+persist.device_config.runtime_native_boot.iorap_readahead_enable=true
 iorapd.readahead.enable=true
 
 # USB MTP WHQL
