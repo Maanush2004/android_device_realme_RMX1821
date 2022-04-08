@@ -97,6 +97,10 @@ PRODUCT_PACKAGES += \
 #PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 #    ro.face.moto_unlock_service=true
 
+# DT2W
+PRODUCT_PACKAGES += \
+    DT2W-Service-RMX1821
+
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
