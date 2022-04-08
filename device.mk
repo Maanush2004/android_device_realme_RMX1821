@@ -27,9 +27,6 @@ DEVICE_PACKAGE_OVERLAYS += \
 	$(DEVICE_PATH)/overlay \
 	$(DEVICE_PATH)/overlay-lineage
 
-PRODUCT_PACKAGES += \
-    NotchBarKiller
-
 # Dependencies of kpoc_charger
 PRODUCT_PACKAGES += \
     libsuspend \
