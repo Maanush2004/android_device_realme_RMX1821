@@ -1,7 +1,7 @@
 From 08889d8a4e03f2b1fc8aecb609011b960831f876 Mon Sep 17 00:00:00 2001
 From: alibei <sebastiankotzias83@gmail.com>
 Date: Fri, 22 Oct 2021 20:48:50 +0200
-Subject: [PATCH] Revert "libfs_avb: verifying vbmeta digest early"
+Subject: [PATCH 2/2] Revert "libfs_avb: verifying vbmeta digest early"
 
 In the console-ramoops-0 log, it shows this on tucana:
 init: [libfs_avb]Failed to verify vbmeta digest

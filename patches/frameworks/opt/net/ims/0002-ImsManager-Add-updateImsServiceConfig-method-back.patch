@@ -1,0 +1,49 @@
+From 6086fe0d5f8bc1f8ac98db1a81226df17ba6e6e1 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sun, 14 Nov 2021 13:47:29 -0500
+Subject: [PATCH 2/2] ImsManager: Add updateImsServiceConfig method back
+
+* required for MTK IMS
+
+12-13 20:08:14.640  5672  5672 E AndroidRuntime: FATAL EXCEPTION: main
+12-13 20:08:14.640  5672  5672 E AndroidRuntime: Process: com.mediatek.ims, PID: 5672
+12-13 20:08:14.640  5672  5672 E AndroidRuntime: java.lang.NoSuchMethodError: No static method updateImsServiceConfig(Landroid/content/Context;IZ)V in class Lcom/android/ims/ImsManager; or its super classes (declaration of 'com.android.ims.ImsManager' appears in /system/framework/ims-common.jar)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at com.mediatek.ims.plugin.impl.ImsManagerOemPluginBase.updateImsServiceConfig(ImsManagerOemPluginBase.java:64)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at com.mediatek.ims.ImsService.updateRadioState(ImsService.java:1320)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at com.mediatek.ims.ImsService$MyHandler.handleMessage(ImsService.java:2365)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at android.os.Handler.dispatchMessage(Handler.java:106)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at android.os.Looper.loopOnce(Looper.java:201)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at android.os.Looper.loop(Looper.java:288)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at android.app.ActivityThread.main(ActivityThread.java:7840)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at java.lang.reflect.Method.invoke(Native Method)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:550)
+12-13 20:08:14.640  5672  5672 E AndroidRuntime:        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1003)
+
+Change-Id: I3dd66d436629d37c8ec795df6569736195ae570e
+Signed-off-by: SamarV-121 <samarvispute121@pm.me>
+---
+ src/java/com/android/ims/ImsManager.java | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/src/java/com/android/ims/ImsManager.java b/src/java/com/android/ims/ImsManager.java
+index 345cbc5..e7e3722 100644
+--- a/src/java/com/android/ims/ImsManager.java
++++ b/src/java/com/android/ims/ImsManager.java
+@@ -1642,6 +1642,14 @@ public class ImsManager implements FeatureUpdates {
+         return true;
+     }
+ 
++    public static void updateImsServiceConfig(Context context, int phoneId, boolean force) {
++        ImsManager mgr = ImsManager.getInstance(context, phoneId);
++        if (mgr != null) {
++            mgr.updateImsServiceConfig();
++        }
++        Rlog.e(TAG, "updateImsServiceConfig: ImsManager null, returning without update.");
++    }
++
+     /**
+      * Push configuration updates to the ImsService implementation.
+      */
+-- 
+2.30.2
+

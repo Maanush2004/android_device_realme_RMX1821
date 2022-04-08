@@ -1,7 +1,7 @@
 From 0a24fa81b0341cc38357807347d4306bd5480fb6 Mon Sep 17 00:00:00 2001
 From: Kshitij Gupta <kshitijgm@gmail.com>
 Date: Fri, 18 Sep 2020 07:12:31 +0000
-Subject: [PATCH] Partially Revert "Remove references to deprecated device
+Subject: [PATCH 1/2] Partially Revert "Remove references to deprecated device
  config"
 
 This reverts commit e2ac4f5ca0bed63eecd2a071705091608fbdcdc3.
