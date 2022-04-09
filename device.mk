@@ -107,7 +107,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 $(call inherit-product, vendor/realme/RMX1821-ims/RMX1821-vendor.mk)
 
 # Parts
-$(call inherit-product-if-exists, packages/apps/RealmeParts/parts.mk)
+$(call inherit-product-if-exists, $(DEVICE_PATH)/apps/RealmeParts/parts.mk)
 
 # RealmeDirac
 $(call inherit-product, $(DEVICE_PATH)/apps/RealmeDirac/dirac.mk)
