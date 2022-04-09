@@ -1,6 +1,7 @@
 # Init scripts
 PRODUCT_PACKAGES += \
-        parts.rc
+        parts.rc \
+        cabc.rc
 
 # Parts
 PRODUCT_PACKAGES += \

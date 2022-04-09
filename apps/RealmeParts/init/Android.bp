@@ -3,3 +3,9 @@ prebuilt_etc {
     src: "parts.rc",
     sub_dir: "init",
 }
+
+prebuilt_etc {
+    name: "cabc.rc",
+    src: "cabc.rc",
+    sub_dir: "init",
+}
