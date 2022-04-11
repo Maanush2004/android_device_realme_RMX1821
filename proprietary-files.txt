@@ -52,3 +52,11 @@ lib64/vendor.mediatek.hardware.videotelephony@1.0.so
 -priv-app/EngineerMode/EngineerMode.apk
 lib/libem_support_jni.so
 lib64/libem_support_jni.so
+
+# Audio (SoundFX) | From full_oppo6769-user 10 QP1A.190711.020 RMX2020_11.A.03 release-keys
+vendor/etc/dirac/19741/diracmobile.config:product/vendor_overlay/29/etc/dirac/18601/diracmobile.config|32295428b4878c9e52d271c7497c6d6ddee8a427
+vendor/etc/dirac/19741/diracvdd.bin:product/vendor_overlay/29/etc/dirac/18601/diracvdd.bin|f8730855d85648783df7203337e4ba49d5bc17fa
+vendor/etc/diracmobile.config:product/vendor_overlay/29/etc/diracmobile.config|d781cd6798a7481a8f7128d144abfb2b8794212d
+vendor/etc/diracvdd.bin:product/vendor_overlay/29/etc/diracvdd.bin|f8730855d85648783df7203337e4ba49d5bc17fa
+vendor/lib/libDiracAPI_SHARED.so:product/vendor_overlay/29/lib/libDiracAPI_SHARED.so|42b49679d38eca93fead05ea06ddbdc8108fd4b1
+vendor/lib/soundfx/libdirac.so:product/vendor_overlay/29/lib/soundfx/libdirac.so|f63826a905b520fa524e4c1b147be7cf65240953
