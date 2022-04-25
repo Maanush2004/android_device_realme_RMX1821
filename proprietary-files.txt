@@ -64,3 +64,7 @@ vendor/lib/soundfx/libdirac.so:product/vendor_overlay/29/lib/soundfx/libdirac.so
 # Mtk FM Radio
 -product/lib/libfmjni.so
 -product/lib64/libfmjni.so
+
+# Bluetooth (AptX)
+lib64/libaptX_encoder.so
+lib64/libaptXHD_encoder.so
