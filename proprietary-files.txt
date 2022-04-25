@@ -62,8 +62,8 @@ vendor/lib/libDiracAPI_SHARED.so:product/vendor_overlay/29/lib/libDiracAPI_SHARE
 vendor/lib/soundfx/libdirac.so:product/vendor_overlay/29/lib/soundfx/libdirac.so|f63826a905b520fa524e4c1b147be7cf65240953
 
 # Mtk FM Radio
--product/lib/libfmjni.so
--product/lib64/libfmjni.so
+-product/lib/libfmjni.so:lib/libfmjni.so
+-product/lib64/libfmjni.so:lib64/libfmjni.so
 
 # Bluetooth (AptX)
 lib64/libaptX_encoder.so
