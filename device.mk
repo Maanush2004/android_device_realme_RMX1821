@@ -86,8 +86,7 @@ PRODUCT_PACKAGES += \
 
 # Symbols
 PRODUCT_PACKAGES += \
-    libshim_showlogo \
-    libshim_vtservice
+    libshim_showlogo
 
 # Face Unlock
 #PRODUCT_PACKAGES += \
@@ -104,7 +103,7 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # IMS
-$(call inherit-product, vendor/realme/RMX1821-ims/RMX1821-vendor.mk)
+$(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
 
 # Parts
 $(call inherit-product-if-exists, $(DEVICE_PATH)/apps/RealmeParts/parts.mk)
