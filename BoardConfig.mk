@@ -160,6 +160,3 @@ TARGET_PROVIDES_MEDIATEK_IMS_STACK := true
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
-
-# Mtk FM
-BOARD_HAVE_MTK_FM := true

@@ -100,10 +100,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DT2W-Service-RMX1821
 
-# MediaTek FMRadio
-PRODUCT_PACKAGES += \
-    FMRadio
-
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
