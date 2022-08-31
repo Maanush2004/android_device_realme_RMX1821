@@ -1,4 +1,4 @@
-From 2b175a476740c2db23628f5a8470f9f91cc483c9 Mon Sep 17 00:00:00 2001
+From a003aa4082454de3e93697e59c40237eeabdb262 Mon Sep 17 00:00:00 2001
 From: Maanush Putcha <p.maanush@gmail.com>
 Date: Wed, 3 Nov 2021 11:28:19 +0530
 Subject: [PATCH] build: Add option to append vbmeta image to boot image
@@ -17,10 +17,10 @@ Change-Id: I576cbd504cbaf5999a8f06b2ff4b797e55b84a0f
  4 files changed, 91 insertions(+), 6 deletions(-)
 
 diff --git a/core/Makefile b/core/Makefile
-index 96ffb55448..002416ab9f 100644
+index 63f9c06486..2d4cb3fc65 100644
 --- a/core/Makefile
 +++ b/core/Makefile
-@@ -832,9 +832,11 @@ endif # BUILDING_RAMDISK_IMAGE
+@@ -930,9 +930,11 @@ endif # BUILDING_RAMDISK_IMAGE
  # This is defined here since we may be building recovery as boot
  # below and only want to define this once
  ifneq ($(strip $(BOARD_KERNEL_BINARIES)),)
@@ -34,7 +34,7 @@ index 96ffb55448..002416ab9f 100644
  endif
  
  INTERNAL_PREBUILT_BOOTIMAGE :=
-@@ -1052,6 +1054,7 @@ endif # BOARD_AVB_ENABLE
+@@ -1234,6 +1236,7 @@ endif # BOARD_AVB_ENABLE
  
  else # BOARD_PREBUILT_BOOTIMAGE not defined
  INSTALLED_BOOTIMAGE_TARGET :=
@@ -42,7 +42,7 @@ index 96ffb55448..002416ab9f 100644
  endif # BOARD_PREBUILT_BOOTIMAGE
  endif # TARGET_NO_KERNEL
  endif # my_installed_prebuilt_gki_apex not defined
-@@ -3940,6 +3943,23 @@ endif # BUILDING_VBMETA_IMAGE
+@@ -4588,6 +4591,23 @@ endif # BUILDING_VBMETA_IMAGE
  
  endif # BOARD_AVB_ENABLE
  
@@ -66,7 +66,7 @@ index 96ffb55448..002416ab9f 100644
  # List of files from all images
  INTERNAL_ALLIMAGES_FILES := \
      $(FULL_SYSTEMIMAGE_DEPS) \
-@@ -4580,6 +4600,9 @@ ifneq (,$(strip $(BOARD_CUSTOMIMAGES_PARTITION_LIST)))
+@@ -5275,6 +5295,9 @@ ifneq (,$(strip $(BOARD_CUSTOMIMAGES_PARTITION_LIST)))
  	    echo "avb_$(partition)_partition_size=$(BOARD_AVB_$(call to-upper,$(partition))_PARTITION_SIZE)"  >> $@; \
  	    echo "avb_$(partition)_image_list=$(foreach image,$(BOARD_AVB_$(call to-upper,$(partition))_IMAGE_LIST),$(notdir $(image)))" >> $@;)
  endif # BOARD_CUSTOMIMAGES_PARTITION_LIST
@@ -76,7 +76,7 @@ index 96ffb55448..002416ab9f 100644
  ifneq (,$(strip $(BOARD_AVB_VBMETA_SYSTEM)))
  	$(hide) echo "avb_vbmeta_system=$(BOARD_AVB_VBMETA_SYSTEM)" >> $@
  	$(hide) echo "avb_vbmeta_system_args=$(BOARD_AVB_MAKE_VBMETA_SYSTEM_IMAGE_ARGS)" >> $@
-@@ -4858,6 +4881,7 @@ ifdef BUILDING_RECOVERY_IMAGE
+@@ -5583,6 +5606,7 @@ ifdef BUILDING_RECOVERY_IMAGE
    # commands in build-recoveryimage-target, which would touch the files under
    # TARGET_RECOVERY_OUT and race with packaging target-files.zip.
    ifeq ($(BOARD_USES_RECOVERY_AS_BOOT),true)
@@ -84,15 +84,15 @@ index 96ffb55448..002416ab9f 100644
      $(BUILT_TARGET_FILES_PACKAGE): $(INSTALLED_BOOTIMAGE_TARGET)
    else
      $(BUILT_TARGET_FILES_PACKAGE): $(INSTALLED_RECOVERYIMAGE_TARGET)
-@@ -4891,6 +4915,7 @@ ifdef BUILDING_BOOT_IMAGE
-   $(BUILT_TARGET_FILES_PACKAGE): $(INTERNAL_RAMDISK_FILES)
- endif
+@@ -5617,6 +5641,7 @@ ifneq (,$(BUILDING_BOOT_IMAGE)$(BUILDING_INIT_BOOT_IMAGE))
+ endif  # BUILDING_BOOT_IMAGE != "" || BUILDING_INIT_BOOT_IMAGE != ""
+ 
  ifneq (,$(INTERNAL_PREBUILT_BOOTIMAGE) $(filter true,$(BOARD_COPY_BOOT_IMAGE_TO_TARGET_FILES)))
 +  $(BUILT_TARGET_FILES_PACKAGE): $(MTK_BOOTIMAGE_TARGET)
    $(BUILT_TARGET_FILES_PACKAGE): $(INSTALLED_BOOTIMAGE_TARGET)
  endif
  
-@@ -5313,6 +5338,11 @@ endif
+@@ -6110,6 +6135,11 @@ endif
  ifeq ($(BUILD_QEMU_IMAGES),true)
  	$(hide) AVBTOOL=$(AVBTOOL) $(MK_VBMETA_BOOT_KERNEL_CMDLINE_SH) $(zip_root)/IMAGES/vbmeta.img \
  	    $(zip_root)/IMAGES/system.img $(zip_root)/IMAGES/VerifiedBootParams.textproto
@@ -105,34 +105,34 @@ index 96ffb55448..002416ab9f 100644
  	@# Zip everything up, preserving symlinks and placing META/ files first to
  	@# help early validation of the .zip file while uploading it.
 diff --git a/core/main.mk b/core/main.mk
-index 23982198f2..00c17d8b24 100644
+index 702791ebb7..4345ec45b1 100644
 --- a/core/main.mk
 +++ b/core/main.mk
-@@ -1559,7 +1559,7 @@ systemotherimage: $(INSTALLED_SYSTEMOTHERIMAGE_TARGET)
+@@ -1577,7 +1577,7 @@ systemotherimage: $(INSTALLED_SYSTEMOTHERIMAGE_TARGET)
  superimage_empty: $(INSTALLED_SUPERIMAGE_EMPTY_TARGET)
  
  .PHONY: bootimage
 -bootimage: $(INSTALLED_BOOTIMAGE_TARGET)
 +bootimage: $(MTK_BOOTIMAGE_TARGET)
  
- .PHONY: bootimage_debug
- bootimage_debug: $(INSTALLED_DEBUG_BOOTIMAGE_TARGET)
-@@ -1582,7 +1582,7 @@ vbmetavendorimage: $(INSTALLED_VBMETA_VENDORIMAGE_TARGET)
- droidcore-unbundled: $(filter $(HOST_OUT_ROOT)/%,$(modules_to_install)) \
+ .PHONY: initbootimage
+ initbootimage: $(INSTALLED_INIT_BOOT_IMAGE_TARGET)
+@@ -1608,7 +1608,7 @@ droidcore-unbundled: $(filter $(HOST_OUT_ROOT)/%,$(modules_to_install)) \
+     $(INSTALLED_FILES_OUTSIDE_IMAGES) \
      $(INSTALLED_SYSTEMIMAGE_TARGET) \
      $(INSTALLED_RAMDISK_TARGET) \
 -    $(INSTALLED_BOOTIMAGE_TARGET) \
 +    $(MTK_BOOTIMAGE_TARGET) \
+     $(INSTALLED_INIT_BOOT_IMAGE_TARGET) \
      $(INSTALLED_RADIOIMAGE_TARGET) \
      $(INSTALLED_DEBUG_RAMDISK_TARGET) \
-     $(INSTALLED_DEBUG_BOOTIMAGE_TARGET) \
 diff --git a/tools/releasetools/add_img_to_target_files.py b/tools/releasetools/add_img_to_target_files.py
-index babfc7dcad..abf6c71ba4 100644
+index 09f69d0400..8c12e2a9b0 100644
 --- a/tools/releasetools/add_img_to_target_files.py
 +++ b/tools/releasetools/add_img_to_target_files.py
-@@ -486,6 +486,31 @@ def AddUserdata(output_zip):
-   common.CheckSize(img.name, "userdata.img", OPTIONS.info_dict)
-   img.Write()
+@@ -508,6 +508,31 @@ def AddUserdata(output_zip):
+   # As it's likely huge and consist of lots of 0s.
+   img.Write(zipfile.ZIP_DEFLATED)
  
 +def AVBSignBoot(output_zip):
 +  """Sign the boot image by avbtool.
@@ -162,7 +162,7 @@ index babfc7dcad..abf6c71ba4 100644
  
  def AddVBMeta(output_zip, partitions, name, needed_partitions):
    """Creates a VBMeta image and stores it in output_zip.
-@@ -916,6 +941,10 @@ def AddImagesToTargetFiles(filename):
+@@ -952,6 +977,10 @@ def AddImagesToTargetFiles(filename):
      banner("custom images for " + partition_name)
      partitions[partition_name] = AddCustomImages(output_zip, partition_name)
  
@@ -174,10 +174,10 @@ index babfc7dcad..abf6c71ba4 100644
      # vbmeta_partitions includes the partitions that should be included into
      # top-level vbmeta.img, which are the ones that are not included in any
 diff --git a/tools/releasetools/common.py b/tools/releasetools/common.py
-index 30d02e9c02..1cc910a74a 100644
+index c84c181e75..1811313732 100644
 --- a/tools/releasetools/common.py
 +++ b/tools/releasetools/common.py
-@@ -1692,7 +1692,7 @@ def _BuildBootableImage(image_name, sourcedir, fs_config_file, info_dict=None,
+@@ -1724,7 +1724,7 @@ def _BuildBootableImage(image_name, sourcedir, fs_config_file, info_dict=None,
      img_keyblock.close()
  
    # AVB: if enabled, calculate and add hash to boot.img or recovery.img.
@@ -186,7 +186,7 @@ index 30d02e9c02..1cc910a74a 100644
      avbtool = info_dict["avb_avbtool"]
      if partition_name == "recovery":
        part_size = info_dict["recovery_size"]
-@@ -1707,6 +1707,19 @@ def _BuildBootableImage(image_name, sourcedir, fs_config_file, info_dict=None,
+@@ -1739,6 +1739,19 @@ def _BuildBootableImage(image_name, sourcedir, fs_config_file, info_dict=None,
        cmd.extend(shlex.split(args))
      RunAndCheckOutput(cmd)
  
@@ -206,7 +206,7 @@ index 30d02e9c02..1cc910a74a 100644
    img.seek(os.SEEK_SET, 0)
    data = img.read()
  
-@@ -1732,7 +1745,7 @@ def _SignBootableImage(image_path, prebuilt_name, partition_name,
+@@ -1764,7 +1777,7 @@ def _SignBootableImage(image_path, prebuilt_name, partition_name,
      info_dict = OPTIONS.info_dict
  
    # AVB: if enabled, calculate and add hash to boot.img or recovery.img.
@@ -215,7 +215,7 @@ index 30d02e9c02..1cc910a74a 100644
      avbtool = info_dict["avb_avbtool"]
      if partition_name == "recovery":
        part_size = info_dict["recovery_size"]
-@@ -1748,6 +1761,19 @@ def _SignBootableImage(image_path, prebuilt_name, partition_name,
+@@ -1780,6 +1793,19 @@ def _SignBootableImage(image_path, prebuilt_name, partition_name,
        cmd.extend(shlex.split(args))
      RunAndCheckOutput(cmd)
  
@@ -233,8 +233,8 @@ index 30d02e9c02..1cc910a74a 100644
 +      cmd.extend(shlex.split(args))
 +    RunAndCheckOutput(cmd)
  
- def GetBootableImage(name, prebuilt_name, unpack_dir, tree_subdir,
-                      info_dict=None, two_step_image=False):
+ def HasRamdisk(partition_name, info_dict=None):
+   """Returns true/false to see if a bootable image should have a ramdisk.
 -- 
-2.30.2
+2.37.2
 

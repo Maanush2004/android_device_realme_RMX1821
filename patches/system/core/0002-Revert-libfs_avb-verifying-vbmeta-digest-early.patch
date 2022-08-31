@@ -1,4 +1,4 @@
-From 08889d8a4e03f2b1fc8aecb609011b960831f876 Mon Sep 17 00:00:00 2001
+From 60a21822a2aa78c71e812f93a7529f959479901d Mon Sep 17 00:00:00 2001
 From: alibei <sebastiankotzias83@gmail.com>
 Date: Fri, 22 Oct 2021 20:48:50 +0200
 Subject: [PATCH 2/2] Revert "libfs_avb: verifying vbmeta digest early"
@@ -18,10 +18,10 @@ Change-Id: Ifcb1a85bb278c6282b669b9e692e8f24775ac3f8
  1 file changed, 19 insertions(+), 18 deletions(-)
 
 diff --git a/fs_mgr/libfs_avb/fs_avb.cpp b/fs_mgr/libfs_avb/fs_avb.cpp
-index 1da71176c8..a0eda29d2b 100644
+index a28887627..5a1cdf214 100644
 --- a/fs_mgr/libfs_avb/fs_avb.cpp
 +++ b/fs_mgr/libfs_avb/fs_avb.cpp
-@@ -433,16 +433,6 @@ AvbUniquePtr AvbHandle::Open() {
+@@ -434,16 +434,6 @@ AvbUniquePtr AvbHandle::Open() {
      // Sets the MAJOR.MINOR for init to set it into "ro.boot.avb_version".
      avb_handle->avb_version_ = StringPrintf("%d.%d", AVB_VERSION_MAJOR, AVB_VERSION_MINOR);
  
@@ -38,7 +38,7 @@ index 1da71176c8..a0eda29d2b 100644
      // Checks whether FLAGS_VERIFICATION_DISABLED is set:
      //   - Only the top-level vbmeta struct is read.
      //   - vbmeta struct in other partitions are NOT processed, including AVB HASH descriptor(s)
-@@ -453,16 +443,27 @@ AvbUniquePtr AvbHandle::Open() {
+@@ -454,16 +444,27 @@ AvbUniquePtr AvbHandle::Open() {
      bool verification_disabled = ((AvbVBMetaImageFlags)vbmeta_header.flags &
                                    AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED);
  
@@ -75,5 +75,5 @@ index 1da71176c8..a0eda29d2b 100644
  
      LINFO << "Returning avb_handle with status: " << avb_handle->status_;
 -- 
-2.32.0
+2.37.2
 

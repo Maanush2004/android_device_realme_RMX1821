@@ -1,4 +1,4 @@
-From 350528861cefce8b6efdea792d25fa687fdeb805 Mon Sep 17 00:00:00 2001
+From 81c8b8e599b823c6858aa07e1036b4b37c972a6b Mon Sep 17 00:00:00 2001
 From: Alex Naidis <alex.naidis@linux.com>
 Date: Sun, 9 Apr 2017 01:29:27 +0200
 Subject: [PATCH 1/2] init: Weaken property override security for the init
@@ -23,10 +23,10 @@ Change-Id: I07629b6c19b5ebfa019307c497c18d8bcc719685
  1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/init/property_service.cpp b/init/property_service.cpp
-index 5a8fc54182..172a5a6922 100644
+index 8db414a97..0cc69cc65 100644
 --- a/init/property_service.cpp
 +++ b/init/property_service.cpp
-@@ -118,6 +118,8 @@ struct PropertyAuditData {
+@@ -119,6 +119,8 @@ struct PropertyAuditData {
      const char* name;
  };
  
@@ -35,7 +35,7 @@ index 5a8fc54182..172a5a6922 100644
  static int PropertyAuditCallback(void* data, security_class_t /*cls*/, char* buf, size_t len) {
      auto* d = reinterpret_cast<PropertyAuditData*>(data);
  
-@@ -188,8 +190,8 @@ static uint32_t PropertySet(const std::string& name, const std::string& value, s
+@@ -189,8 +191,8 @@ static uint32_t PropertySet(const std::string& name, const std::string& value, s
  
      prop_info* pi = (prop_info*) __system_property_find(name.c_str());
      if (pi != nullptr) {
@@ -46,7 +46,7 @@ index 5a8fc54182..172a5a6922 100644
              *error = "Read-only property was already set";
              return PROP_ERROR_READ_ONLY_PROPERTY;
          }
-@@ -1098,6 +1100,9 @@ void PropertyLoadBootDefaults() {
+@@ -1133,6 +1135,9 @@ void PropertyLoadBootDefaults() {
          }
      }
  
@@ -56,8 +56,8 @@ index 5a8fc54182..172a5a6922 100644
      // Update with vendor-specific property runtime overrides
      vendor_load_properties();
  
-@@ -1108,6 +1113,9 @@ void PropertyLoadBootDefaults() {
-     property_initialize_ro_cpu_abilist();
+@@ -1144,6 +1149,9 @@ void PropertyLoadBootDefaults() {
+     property_initialize_ro_vendor_api_level();
  
      update_sys_usb_config();
 +
@@ -67,5 +67,5 @@ index 5a8fc54182..172a5a6922 100644
  
  bool LoadPropertyInfoFromFile(const std::string& filename,
 -- 
-2.30.2
+2.37.2
 
