@@ -3,6 +3,7 @@ From: Maanush Putcha <p.maanush@gmail.com>
 Date: Tue, 24 Nov 2020 06:51:39 +0530
 Subject: [PATCH] build: Add option to append vbmeta image to boot image
 
+
 * Partially taken from https://github.com/mtk-watch/android_build_make/commit/89d279a7ab1d0249f89c84d53fd4dbd786d19727
 
 * Set MAIN_VBMETA_IN_BOOT=yes for the vbmeta to get appended to boot image
